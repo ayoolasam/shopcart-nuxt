@@ -8,7 +8,7 @@
       <div
         v-for="(shoe, index) in shoes"
         :key="index"
-        class="h-[350px] max-w-[300px] flex flex-col gap-[10px]"
+        class="h-[350px] blocks max-w-[300px] flex flex-col gap-[10px]"
       >
         <div class="bg-#f2f2f2">
           <img :src="shoe.image" alt="shoe" class="h-full w-full rounded-lg" />

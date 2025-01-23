@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container blocks">
     <div
       class="px-8 flex flex-col  xl:flex-row w-full py-4 gap-4 rounded-md xl:h-[300px] bg-secondary"
     >

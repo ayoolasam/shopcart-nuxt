@@ -1,5 +1,5 @@
 <template>
-  <div class="container flex justify-between items-center">
+  <div class="container flex justify-between blocks items-center">
     <h2 class="text-primary text-3xl font-bold">Shopcart</h2>
     <nav class="hidden xl:flex">
       <ul class="flex gap-4 text-sm">
