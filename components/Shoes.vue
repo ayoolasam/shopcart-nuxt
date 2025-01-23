@@ -1,9 +1,9 @@
 <template>
-  <section class=" mx-auto container   gap-4">
+  <section class="mx-auto container gap-4">
     <h2 class="text-3xl font-bold">Shoes</h2>
-    
+
     <div
-      class="w-full p-4 rounded-md  grid grid-cols-1  place-items-center sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-4 gap-4"
+      class="w-full p-4 rounded-md grid grid-cols-1 place-items-center sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-4 gap-4"
     >
       <div
         v-for="(shoe, index) in shoes"
@@ -14,7 +14,7 @@
           <img :src="shoe.image" alt="shoe" class="h-full w-full rounded-lg" />
         </div>
         <div class="flex flex-col gap-2">
-          <div class="flex xl:justify-between text-center text-sm font-bold">
+          <div class="flex justify-between text-center text-sm font-bold">
             <span>{{ shoe.name }}</span> <span>${{ shoe.price }}</span>
           </div>
           <p class="text-gray-700 text-[8px]">{{ shoe.description }}</p>
@@ -26,7 +26,6 @@
         </div>
       </div>
     </div>
-   
   </section>
 </template>
 
