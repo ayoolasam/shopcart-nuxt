@@ -14,7 +14,7 @@
           <img :src="hoodie.image" alt="shoe" class="h-full w-full rounded-lg" />
         </div>
         <div class="flex flex-col gap-2">
-          <div class="flex xl:justify-between text-center text-sm font-bold">
+          <div class="flex justify-between text-center text-sm font-bold">
             <span>{{ hoodie.name }}</span> <span>${{ hoodie.price }}</span>
           </div>
           <p class="text-gray-700 text-[8px]">{{ hoodie.description }}</p>
