@@ -1,12 +1,12 @@
 <template>
   <div class="">
-    <Nav />
+    
     <Hero />
 
     <Shoes />
 
     <Hoodies />
-    <Footer />
+   
   </div>
 </template>
 
@@ -16,6 +16,12 @@ import Hero from "~/components/Hero.vue";
 import Shoes from "../components/Shoes.vue";
 import Hoodies from "~/components/Hoodies.vue";
 import Footer from "~/components/Footer.vue";
+
+
+definePageMeta({
+  layout:"main"
+})
+
 </script>
 
 <style lang="scss" scoped></style>

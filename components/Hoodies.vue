@@ -18,7 +18,7 @@
             <span>{{ hoodie.name }}</span> <span>${{ hoodie.price }}</span>
           </div>
           <p class="text-gray-700 text-[8px]">{{ hoodie.description }}</p>
-          <p class="flex items-center"><NuxtRating :rating-value="hoodie.ratingValue"/> <span class="text-[8px]">(121)</span></p> 
+          <p class="flex items-center"><NuxtRating :rating-value="hoodie.ratingValue"/> <span class="text-[8px]">({{ hoodie.ratings }})</span></p> 
           <button
             class="border-[1px] text-xs border-[#b9b9b9] w-[120px] py-2 text-black rounded-full hover:bg-primary hover:text-white"
           >
@@ -45,28 +45,32 @@ const hoodies = [
     price: 45,
     description: "A comfortable pullover hoodie made with soft cotton fleece.",
     image: hoodie,
-    ratingValue:2.5
+    ratingValue:2.5,
+    ratings:123
   },
   {
     name: "Zip-Up Hoodie",
     price: 50,
     description: "A lightweight zip-up hoodie with adjustable drawstrings.",
     image: hoodie2,
-    ratingValue:3.5
+    ratingValue:3.5,
+    ratings:75
   },
   {
     name: "Oversized Hoodie",
     price: 60,
     description: "An oversized hoodie perfect for lounging or casual outings.",
     image: hoodie3,
-    ratingValue:4.5
+    ratingValue:4.5,
+    ratings:35
   },
   {
     name: "Graphic Hoodie",
     price: 55,
     description: "Features bold graphics and a relaxed fit.",
     image: hoodie4,
-    ratingValue:1.5
+    ratingValue:1.5,
+    ratings:25
   },
   {
     name: "Premium Hoodie",
@@ -74,34 +78,40 @@ const hoodies = [
     description:
       "High-quality fabric with a luxurious feel and added durability.",
     image: hoodie3,
-    ratingValue:5.0
+    ratingValue:5.0,
+    ratings:225
+
   },
   {
     name: "Sporty Hoodie",
     price: 65,
     description: "Designed for active lifestyles with moisture-wicking fabric.",
     image: hoodie2,
-    ratingValue:3.5
+    ratingValue:3.5,
+    ratings:39
   },
   {
     name: "Vintage Hoodie",
     price: 70,
     description: "A hoodie with a classic vintage design and faded colors.",
     image: hoodie3,
+    ratings:567
   },
   {
     name: "Eco-Friendly Hoodie",
     price: 80,
     description: "Made from 100% recycled materials for sustainable fashion.",
     image: hoodie4,
-    ratingValue:4.5
+    ratingValue:4.5,
+    ratings:137
   },
   {
     name: "Tie-Dye Hoodie",
     price: 50,
     description: "Features a unique tie-dye pattern in vibrant colors.",
     image: hoodie,
-    ratingValue:2.5
+    ratingValue:2.5,
+    ratings:120
   },
 ];
 </script>

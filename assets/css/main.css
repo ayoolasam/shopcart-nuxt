@@ -10,6 +10,8 @@
 * {
   font-family: "JetBrains Mono", serif;
   box-sizing: border-box;
+ 
+  
 }
 .container {
   @apply mx-auto py-8 px-4;
