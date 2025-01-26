@@ -1,5 +1,5 @@
 <template>
-  <div class="container flex justify-between blocks items-center">
+  <div class="container relative flex justify-between blocks items-center">
     <h2 class="text-primary text-3xl font-bold">Shopcart</h2>
     <nav class="hidden xl:flex">
       <ul class="flex gap-4 text-sm">
@@ -25,13 +25,20 @@
         >
       </NuxtLink>
     </div>
-    <div class="text-3xl xl:hidden text-primary font-bold">
+    <div @click="toggleSideBar"  class="text-3xl xl:hidden text-primary font-bold">
       <i class="ri-menu-line"></i>
     </div>
+    <SideBar :sidebar="toggle" @close="toggleSideBar"/>
   </div>
 </template>
 
 <script setup>
+import SideBar from './SideBar.vue';
+const toggle = ref(false)
+
+const toggleSideBar = ()=>{
+  toggle.value = !toggle.value
+}
 const nav = [
   {
     name: "Deals",
