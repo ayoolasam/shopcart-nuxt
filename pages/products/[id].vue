@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="py-8 px-4">
     <p class="text-gray-600">electronics / HeadPhones</p>
 
     <div class="w-full xl:h-[600px] flex gap-4 flex-col xl:flex-row  mt-8">

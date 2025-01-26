@@ -14,7 +14,7 @@
   
 }
 .container {
-  @apply mx-auto py-8 px-4;
+  @apply  py-8 px-4 mx-auto;
   
 }
 .blocks{
