@@ -1,6 +1,9 @@
 <template>
-  <div class="container relative flex justify-between blocks items-center">
-    <h2 class="text-primary text-3xl font-bold">Shopcart</h2>
+  <div class="px-8 py-8  relative z-50 flex justify-between blocks items-center">
+    <NuxtLink :to="'/'">
+      <h2 class="text-primary text-3xl font-bold">Shopcart</h2>
+    </NuxtLink>
+   
     <nav class="hidden xl:flex">
       <ul class="flex gap-4 text-sm">
         <li v-for="(item, index) in nav" :key="index">{{ item.name }}</li>
@@ -28,16 +31,17 @@
     <div @click="toggleSideBar"  class="text-3xl xl:hidden text-primary font-bold">
       <i class="ri-menu-line"></i>
     </div>
-    <SideBar :sidebar="toggle" @close="toggleSideBar"/>
+   
   </div>
 </template>
 
 <script setup>
 import SideBar from './SideBar.vue';
 const toggle = ref(false)
+const emit = defineEmits(["show"]);
 
 const toggleSideBar = ()=>{
-  toggle.value = !toggle.value
+emit('show')
 }
 const nav = [
   {

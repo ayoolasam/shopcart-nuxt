@@ -37,8 +37,8 @@
         </div>
       </div>
       <div class="flex flex-col items-start  w-full  px-2 gap-2">
-        <h1 class="blocks">DONT MISS OUT ON THE LATEST</h1>
-        <div class="flex blocks   xl:max-w-[80%] w-full ">
+        <h1 class="">DONT MISS OUT ON THE LATEST</h1>
+        <div class="flex    xl:max-w-[80%] w-full ">
         
           <input
             class="py-[8px] px-4  w-full xl:w-[60%]  focus:outline-none rounded-tl-md placeholder:text-xs rounded-bl-md border-[1px] border-[#f2f2f2]"

@@ -1,12 +1,10 @@
 <template>
-  <div class="">
-    
+  <div class="w-screen relative">
     <Hero />
 
     <Shoes />
 
     <Hoodies />
-   
   </div>
 </template>
 
@@ -17,11 +15,9 @@ import Shoes from "../components/Shoes.vue";
 import Hoodies from "~/components/Hoodies.vue";
 import Footer from "~/components/Footer.vue";
 
-
 definePageMeta({
-  layout:"main"
-})
-
+  layout: "main",
+});
 </script>
 
 <style lang="scss" scoped></style>

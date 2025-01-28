@@ -1,5 +1,5 @@
 <template>
-  <section class=" mx-auto container    gap-8">
+  <section class=" mx-auto container   gap-8">
     <h2 class="text-3xl font-bold">Hoodies</h2>
     
     <div

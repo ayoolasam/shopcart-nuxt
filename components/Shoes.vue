@@ -1,5 +1,5 @@
 <template>
-  <section class="mx-auto container gap-4">
+  <section class="mx-auto  container gap-4">
     <h2 class="text-3xl font-bold">Shoes</h2>
 
     <div
