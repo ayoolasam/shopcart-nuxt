@@ -72,8 +72,15 @@ const listShoes = async () => {
 };
 
 const addToCart = (product) => {
-  productStore.addToCart(product);
-  toast.success(`${product.name} added to Cart`);
+  const addProduct = productStore.addToCart(product);
+
+  if (!addProduct){
+    toast.error("Product already added to Cart")
+  }
+
+  else {
+    toast.success(`${product.name} added to Cart`);
+  }
 };
 
 onMounted(() => {

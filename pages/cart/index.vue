@@ -38,9 +38,15 @@
             <div
               class="h-[30px] flex justify-between items-center rounded-lg w-[80px] px-4 bg-[#f6f6f6]"
             >
-              <i class="ri-add-line"></i>
-              <span class="text-xs">1</span>
-              <i class="ri-subtract-line"></i>
+              <i
+                @click="productStore.addToExistingProduct(product)"
+                class="ri-add-line"
+              ></i>
+              <span class="text-xs">{{ product.numOfProducts }}</span>
+              <i
+                @click="productStore.subTractFromExistingProduct(product)"
+                class="ri-subtract-line"
+              ></i>
             </div>
           </div>
         </div>
