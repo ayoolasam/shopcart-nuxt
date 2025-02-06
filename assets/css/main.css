@@ -12,8 +12,9 @@
   box-sizing: border-box;
 }
 .container {
-  @apply py-8 px-4;
+  @apply py-8 px-4 ;
 }
+
 .blocks {
   animation: appear linear;
   animation-timeline: view();

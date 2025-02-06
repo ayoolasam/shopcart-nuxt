@@ -1,5 +1,5 @@
 <template>
-  <div class="w-screen relative">
+  <div class="w-full">
     <Hero />
 
     <Shoes />

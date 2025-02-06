@@ -1,5 +1,5 @@
 <template>
-  <div  class="modal-overlay">
+  <div  class="modal-overlay xl:hidden md:hidden">
     <div
       class="bg-primary py-4 h-full absolute right-0 top-0 transition-all duration-1000 w-[270px]"
     >
