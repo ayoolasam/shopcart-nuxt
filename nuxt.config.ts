@@ -5,15 +5,62 @@ import tailwindcss from "@tailwindcss/vite"
 
 export default defineNuxtConfig({
   compatibilityDate: '2024-11-01',
+ 
+
+  runtimeConfig:{
+    public: {
+      apiBaseUrl:'http://localhost:7000'
+      //  apiBaseUrl:'https://event-management-express.onrender.com'
+  },
+
+  },
+
+
+  build: {
+    transpile: ['maz-ui'],
+  },
+  vite: {
+    plugins:[
+      tailwindcss(),
+    ],
+    resolve: {
+      alias: {
+        './types': './node_modules/maz-ui/components/types.d.ts', // Explicitly resolve the path
+      },
+    },
+  },
+
+  modules:["nuxt-rating",'maz-ui/nuxt'],
+
+
+  
+
+  mazUi: {
+    injectComponents: true,
+    injectCss: true,
+    injectAos: {
+      injectCss: true,
+    },
+    injectUseToast: true,
+    injectUseThemeHandler: true,
+    devtools: true,
+  },
+
+
+
+ 
+
   devtools: { enabled: true },
-  modules:["nuxt-rating"],
+  
+
   css:['~/assets/css/main.css',
     "remixicon/fonts/remixicon.css",
   ],
-  vite:{
-    plugins:[
-      tailwindcss(),
-    ]
-  }
+
+  // vite:{
+  //   plugins:[
+  //     tailwindcss(),
+  //   ]
+  // }
 
 })
