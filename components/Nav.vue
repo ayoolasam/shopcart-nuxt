@@ -23,9 +23,14 @@
         <i class="ri-user-line text-xl"></i> Account
       </span>
       <NuxtLink :to="'/cart'">
-        <span class="flex gap-[7px] text-sm items-center">
-          <i class="ri-shopping-cart-line text-xl"></i>Cart</span
-        >
+        <p class="flex gap-[7px] text-sm items-center relative">
+          <i class="ri-shopping-cart-line text-xl"></i>
+          <span
+            class="bg-primary h-[20px] w-[20px] rounded-full text-xs bottom-4 left-[10px] text-white flex items-center justify-center absolute"
+          >
+            {{ productStore.cart.length }}
+          </span>
+        </p>
       </NuxtLink>
     </div>
     <div
@@ -41,10 +46,12 @@
 import SideBar from "./SideBar.vue";
 const toggle = ref(false);
 const emit = defineEmits(["show"]);
+import { useProductStore } from "../stores/product";
 
 const toggleSideBar = () => {
   emit("show");
 };
+const productStore = useProductStore();
 const nav = [
   {
     name: "Deals",

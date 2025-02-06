@@ -31,6 +31,7 @@
             <span class="text-[8px]">({{ shoe.numReviews }})</span>
           </p>
           <button
+            @click="addToCart(shoe)"
             class="border-[1px] text-xs border-[#b9b9b9] w-[120px] py-2 text-black rounded-full hover:bg-primary hover:text-white"
           >
             Add to Cart
@@ -47,9 +48,11 @@ import shoe2 from "../assets/images/2.jpg";
 import shoe3 from "../assets/images/3.jpg";
 import { useToast } from "maz-ui";
 const { $apiClient } = useNuxtApp();
+import { useProductStore } from "../stores/product";
 const shoes = ref([]);
 const toast = useToast();
 const loading = ref(false);
+const productStore = useProductStore();
 
 const listShoes = async () => {
   try {
@@ -68,10 +71,14 @@ const listShoes = async () => {
   }
 };
 
+const addToCart = (product) => {
+  productStore.addToCart(product);
+  toast.success(`${product.name} added to Cart`);
+};
+
 onMounted(() => {
   listShoes();
 });
-
 </script>
 
 <style lang="scss" scoped></style>

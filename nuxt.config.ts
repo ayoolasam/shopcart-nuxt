@@ -30,7 +30,15 @@ export default defineNuxtConfig({
     },
   },
 
-  modules:["nuxt-rating",'maz-ui/nuxt'],
+  modules:["nuxt-rating",'maz-ui/nuxt',
+    [
+      "@pinia/nuxt",
+      {
+        autoImports: ["defineStore", "acceptHMRUpdate"],
+      },
+    ],
+    'pinia-plugin-persistedstate/nuxt'
+    ],
 
 
   
@@ -56,6 +64,12 @@ export default defineNuxtConfig({
   css:['~/assets/css/main.css',
     "remixicon/fonts/remixicon.css",
   ],
+
+
+  
+  imports: {
+    dirs: ["stores"],
+  },
 
   // vite:{
   //   plugins:[

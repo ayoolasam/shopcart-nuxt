@@ -10,7 +10,7 @@
       </h1>
 
       <div
-        v-for="(n, index) in 2"
+        v-for="(product, index) in productStore.cart"
         :key="index"
         class="w-full text-xs xl:text-sm flex flex-col gap-4 md:gap-0 md:flex-row md:text-sm xl:gap-0 justify-between xl:flex-row px-4 py-4 border-b-[1px] border-[#f6f6f6]"
       >
@@ -19,7 +19,7 @@
             class="md:h-[100px] xl:h-[100px] h-[100px] sm:h-[150px] xl:w-[200px] md:w-[180px] w-full"
           >
             <img
-              :src="shoe"
+              :src="product.images[0].url"
               class="object-cover h-full w-full rounded-lg object-center"
               alt=""
             />
@@ -28,9 +28,10 @@
             class="flex cursor-pointer xl:flex-col md:flex-col w-full justify-between md:justify-normal xl:justify-normal md:28 xl:w-32 flex-row gap-6"
           >
             <div>
-              <p>Ralp Lauren</p>
+              <p>{{ product.name }}</p>
               <div class="text-xs text-gray-300">
-                <span>$12</span> | <span class="text-green-400">In Stock</span>
+                <span>${{ product.price }}</span> |
+                <span class="text-green-400">In Stock</span>
               </div>
             </div>
 
@@ -47,9 +48,10 @@
         <div
           class="flex xl:flex-col cursor-pointer md:flex-col justify-between items-center xl:items-end"
         >
-          <p class="text-xl font-bold">$12</p>
+          <p class="text-xl font-bold">${{ product.price }}</p>
 
           <div
+            @click="deleteFromCart(product)"
             class="px-4 xl:px-12 bg-[#f6f6f6] text-primary hover:bg-primary hover:text-white py-4 rounded-md flex items-center gap-4"
           >
             <i class="ri-delete-bin-7-fill"></i> <span>Delete</span>
@@ -79,9 +81,16 @@
 
 <script setup>
 import shoe from "../../assets/images/3.jpg";
+import { useProductStore } from "../../stores/product";
+
+const productStore = useProductStore();
 definePageMeta({
   layout: "main",
 });
+
+const deleteFromCart = (product) => {
+  productStore.deleteFromCart(product);
+};
 </script>
 
 <style lang="scss" scoped></style>
