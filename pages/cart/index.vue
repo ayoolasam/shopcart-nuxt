@@ -72,14 +72,14 @@
         <p class="font-semibold">Cart Summary</p>
         <div class="flex items-center justify-between">
           <span>SubTotal</span>
-          <span>$127</span>
+          <span>${{ productStore.subTotal }}</span>
         </div>
         <p class="text-gray-400 text-xs">Delivery Fees Not Included Yet</p>
       </div>
       <div
         class="h-[50px] w-full shadow-md text-white flex items-center justify-center rounded-md bg-primary"
       >
-        Checkout $5000
+        Checkout ${{ productStore.subTotal }}
       </div>
     </div>
   </div>
