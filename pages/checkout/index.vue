@@ -88,7 +88,7 @@
       <div class="text-xs flex flex-col gap-2.5">
         <div class="flex justify-between">
           <span class="text-gray-500">subTotal</span>
-          <span class="font-bold">$200</span>
+          <span class="font-bold">${{ productStore.subTotal }}</span>
         </div>
         <div class="flex justify-between">
           <span class="text-gray-500">shipping</span>
