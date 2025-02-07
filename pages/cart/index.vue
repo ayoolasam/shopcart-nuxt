@@ -76,11 +76,13 @@
         </div>
         <p class="text-gray-400 text-xs">Delivery Fees Not Included Yet</p>
       </div>
-      <div
-        class="h-[50px] w-full shadow-md text-white flex items-center justify-center rounded-md bg-primary"
-      >
-        Checkout ${{ productStore.subTotal }}
-      </div>
+      <NuxtLink to="/checkout">
+        <div
+          class="h-[50px] w-full shadow-md text-white flex items-center justify-center rounded-md bg-primary"
+        >
+          Checkout ${{ productStore.subTotal }}
+        </div>
+      </NuxtLink>
     </div>
   </div>
 </template>

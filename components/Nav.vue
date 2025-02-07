@@ -26,6 +26,7 @@
         <p class="flex gap-[7px] text-sm items-center relative">
           <i class="ri-shopping-cart-line text-xl"></i>
           <span
+            v-if="productStore.cart.length > 0"
             class="bg-primary h-[20px] w-[20px] rounded-full text-xs bottom-4 left-[10px] text-white flex items-center justify-center absolute"
           >
             {{ productStore.cart.length }}
