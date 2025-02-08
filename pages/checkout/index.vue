@@ -5,13 +5,17 @@
       <p class="font-bold">Shipping Information</p>
       <div class="bg-yellow flex gap-4 w-full">
         <div
-          class="h-12 border-[#f2f2f2] border-[1px] flex gap-2 text-center justify-center items-center text-sm text-gray-500 rounded-md flex-1"
+          @click="setDelivery('delivery')"
+          class="h-12 border-[#f2f2f2] border-[1px] flex gap-2 cursor-pointer text-center justify-center items-center text-sm text-gray-500 rounded-md flex-1"
+          :class="{ 'bg-primary text-white': deliveryMethod === 'delivery' }"
         >
           <i class="ri-truck-line"></i>
           <span>Delivery</span>
         </div>
         <div
-          class="h-12 rounded-md flex-1 border-[#f2f2f2] flex gap-2 text-center justify-center items-center text-sm text-gray-500 border-[1px]"
+          @click="setDelivery('pickUp')"
+          :class="{ 'bg-primary text-white': (deliveryMethod === 'pickUp') }"
+          class="h-12 rounded-md flex-1 border-[#f2f2f2] flex gap-2 text-center cursor-pointer justify-center items-center text-sm text-gray-500 border-[1px]"
         >
           <i class="ri-box-3-line"></i>
           <span>Pick Up</span>
@@ -67,7 +71,7 @@
           :key="index"
           class="flex text-xs gap-4"
         >
-          <div class="h-[100px] w-[100px] rounded-md bg-red-400">
+          <div class="h-[100px] w-[150px] rounded-md bg-red-400">
             <img
               v-if="productStore.cart"
               :src="product?.images[0]?.url"
@@ -117,6 +121,12 @@ import { useProductStore } from "../../stores/product";
 definePageMeta({
   layout: "main",
 });
+
+const deliveryMethod = ref(null);
+
+const setDelivery = (str) => {
+  deliveryMethod.value = str;
+};
 
 const productStore = useProductStore();
 </script>
