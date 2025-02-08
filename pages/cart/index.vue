@@ -9,7 +9,12 @@
         Cart
       </h1>
 
+      <div v-if="productStore.cart.length === 0" class="mt-8">
+        No Products In Cart Yet
+      </div>
+
       <div
+        v-else
         v-for="(product, index) in productStore.cart"
         :key="index"
         class="w-full text-xs xl:text-sm flex flex-col gap-4 md:gap-0 md:flex-row md:text-sm xl:gap-0 justify-between xl:flex-row px-4 py-4 border-b-[1px] border-[#f6f6f6]"
