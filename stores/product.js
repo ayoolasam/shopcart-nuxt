@@ -70,7 +70,8 @@ export const useProductStore = defineStore("product", {
       }, 0);
     },
     calculateTotalAmount() {
-      let discount = (this.totalAmount * this.discountPercentage) / 100;
+      this.totalAmount = this.subTotal + this.shipping;
+      const discount = (this.totalAmount * this.discountPercentage) / 100;
       this.totalAmount = this.totalAmount - discount;
     },
   },
