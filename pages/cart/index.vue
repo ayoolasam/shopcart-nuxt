@@ -59,7 +59,7 @@
         <div
           class="flex xl:flex-col cursor-pointer md:flex-col justify-between items-center xl:items-end"
         >
-          <p class="text-xl font-bold">${{ product.price }}</p>
+          <p class="text-xl font-bold">${{ product.totalPrice }}</p>
 
           <div
             @click="deleteFromCart(product)"
