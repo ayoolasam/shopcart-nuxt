@@ -47,7 +47,7 @@ export const useProductStore = defineStore("product", {
         existingProduct.numOfProducts += 1;
         existingProduct.totalPrice =
           existingProduct.totalPrice + existingProduct.price;
-        console.log(existingProduct.totalPrice);
+
         this.updateCartTotals();
         this.calculateTotalAmount();
       }
