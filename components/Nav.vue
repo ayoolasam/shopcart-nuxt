@@ -18,10 +18,11 @@
       />
       <i class="ri-search-line"></i>
     </div>
-    <div class="gap-4 hidden xl:flex">
-      <span class="flex gap-[7px] text-sm items-center">
+    <div class="gap-6 hidden xl:flex cursor-pointer items-center">
+      <!-- <span class="flex relative gap-[7px] text-sm items-center">
         <i class="ri-user-line text-xl"></i> Account
-      </span>
+        <div class="h-[100px] w-[100px]  shadow-xl rounded-md bg-white top-[20px] absolute"></div>
+      </span> -->
       <NuxtLink :to="'/cart'">
         <p class="flex gap-[7px] text-sm items-center relative">
           <i class="ri-shopping-cart-line text-xl"></i>
@@ -33,6 +34,37 @@
           </span>
         </p>
       </NuxtLink>
+      <div
+        class="flex gap-[10px] relative cursor-pointer"
+        @click="showAccountTab"
+      >
+        <div
+          v-if="accountTab"
+          class="shadow-xl w-[160px] account-menu absolute left-8 rounded-md top-8 bg-white"
+        >
+          <ul class="w-full h-full">
+            <li
+              class="px-4 text-sm py-[5px] w-full h-full text-primary hover:bg-green-300 transition-all duration-500 hover:text-white flex gap-4 justify-center text-center"
+              v-for="(tab, index) in account"
+              :key="index"
+            >
+              <i :class="tab.icon"></i>
+              <span class="font-bold hover:text-white">{{ tab.tab }}</span>
+            </li>
+          </ul>
+        </div>
+        <div class="h-[30px] w-[30px] rounded-full bg-primary">
+          <!-- <img src="/" alt="profile-picture" /> -->
+        </div>
+        <div class="gap-[5px] flex items-center">
+          <div class="text-xs">
+            <p>Hi, Pablo</p>
+            <p>Pablo Cassanova</p>
+          </div>
+
+          <i class="ri-arrow-down-s-line text-[20px] font-semibold"></i>
+        </div>
+      </div>
     </div>
     <div
       @click="toggleSideBar"
@@ -55,18 +87,36 @@ const toggleSideBar = () => {
 const productStore = useProductStore();
 const nav = [
   {
-    name: "Deals",
+    name: "Shoes",
     link: "/",
   },
   {
-    name: "Whats New",
+    name: "Hoodies",
     link: "/shop",
   },
+];
+
+const account = [
   {
-    name: "Delivery",
-    link: "/about",
+    tab: "Profile",
+    icon: "ri-user-line",
+  },
+  {
+    tab: "Orders",
+    icon: "ri-handbag-line",
   },
 ];
+
+const accountTab = ref(false);
+const showAccountTab = () => {
+  accountTab.value = !accountTab.value;
+};
+
+// document.addEventListener("click", (e) => {
+//   if (!e.target.closest("account-menu") && accountTab.value) {
+//     accountTab.value = false;
+//   }
+// });
 </script>
 
 <style lang="scss" scoped></style>

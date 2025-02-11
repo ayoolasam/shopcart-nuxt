@@ -68,7 +68,7 @@
         </div>
       </div>
       <!--  -->
-      <div class="flex gap-4">
+      <div class="grid gap-4 grid-cols-2 xl:grid-cols-3 md:grid-cols-3">
         <div class="flex flex-col gap-[10px]">
           <label class="block">City</label>
           <input

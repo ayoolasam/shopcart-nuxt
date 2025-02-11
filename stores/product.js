@@ -59,7 +59,8 @@ export const useProductStore = defineStore("product", {
       if (existingProduct) {
         if (existingProduct.numOfProducts > 1)
           existingProduct.numOfProducts -= 1;
-        existingProduct.totalPrice * existingProduct.numOfProducts;
+        existingProduct.totalPrice =
+          existingProduct.totalPrice + existingProduct.price;
         this.updateCartTotals();
         this.calculateTotalAmount();
       }
