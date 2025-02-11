@@ -1,5 +1,5 @@
 <template>
-  <div class="px-8 py-8 relative z-50 flex justify-between blocks items-center">
+  <div class="px-8 py-8 relative z-50 border-b-[1px] border-[#f2f2f2] flex justify-between blocks items-center">
     <NuxtLink :to="'/'">
       <h2 class="text-primary text-3xl font-bold">Shopcart</h2>
     </NuxtLink>
@@ -36,7 +36,7 @@
       </NuxtLink>
       <div
         class="flex gap-[10px] relative cursor-pointer"
-        @click="showAccountTab"
+        @click.stop="showAccountTab"
       >
         <div
           v-if="accountTab"
@@ -48,8 +48,10 @@
               v-for="(tab, index) in account"
               :key="index"
             >
-              <i :class="tab.icon"></i>
-              <span class="font-bold hover:text-white">{{ tab.tab }}</span>
+              <NuxtLink :to="tab.to">
+                <i :class="tab.icon"></i>
+                <span class="font-bold hover:text-white">{{ tab.tab }}</span>
+              </NuxtLink>
             </li>
           </ul>
         </div>
@@ -80,6 +82,7 @@ import SideBar from "./SideBar.vue";
 const toggle = ref(false);
 const emit = defineEmits(["show"]);
 import { useProductStore } from "../stores/product";
+import { NuxtLink } from "#components";
 
 const toggleSideBar = () => {
   emit("show");
@@ -100,10 +103,12 @@ const account = [
   {
     tab: "Profile",
     icon: "ri-user-line",
+    to: "/",
   },
   {
     tab: "Orders",
     icon: "ri-handbag-line",
+    to: "/user/orders",
   },
 ];
 
@@ -112,11 +117,13 @@ const showAccountTab = () => {
   accountTab.value = !accountTab.value;
 };
 
-// document.addEventListener("click", (e) => {
-//   if (!e.target.closest("account-menu") && accountTab.value) {
-//     accountTab.value = false;
-//   }
-// });
+onMounted(() => {
+  document.addEventListener("click", (e) => {
+    if (!e.target.closest("account-menu") && accountTab.value) {
+      accountTab.value = false;
+    }
+  });
+});
 </script>
 
 <style lang="scss" scoped></style>

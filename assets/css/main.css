@@ -12,13 +12,26 @@
   box-sizing: border-box;
 }
 .container {
-  @apply py-8 px-4 ;
+  @apply py-8 px-4;
 }
 
 .blocks {
   animation: appear linear;
   animation-timeline: view();
   animation-range: entry 0% cover 40%;
+}
+th {
+  @apply p-4  text-sm text-primary;
+}
+thead {
+  @apply bg-[#f2f2f2] ;
+}
+
+td {
+  @apply p-4 text-xs border-b-[1px] border-[#f2f2f2] text-center;
+}
+table{
+  @apply border-[1px] border-[#f2f2f2] ;
 }
 
 @keyframes appear {

@@ -81,7 +81,7 @@
         </div>
         <p class="text-gray-400 text-xs">Delivery Fees Not Included Yet</p>
       </div>
-      <NuxtLink to="/checkout">
+      <NuxtLink to="/user/checkout">
         <div
           class="h-[50px] w-full shadow-md text-white flex items-center justify-center rounded-md bg-primary"
         >
