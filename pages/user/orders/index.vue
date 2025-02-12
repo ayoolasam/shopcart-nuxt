@@ -51,11 +51,14 @@
                 v-if="actions && ind === index"
                 class="h-[70px] actions-menu top-8 shadow-xl flex flex-col z-50 right-4 absolute bg-white w-[150px] rounded-md"
               >
-                <p
-                  class="flex gap-4 items-center rounded-tr-xl rounded-tl-xl hover:bg-[#f2f2f2] flex-1 px-4"
-                >
-                  <i class="ri-eye-line"></i> <span>Details</span>
-                </p>
+                <NuxtLink to="/user/orders/1234" class="flex-1 w-full">
+                  <p
+                    class="flex h-full w-full gap-4 items-center rounded-tr-xl rounded-tl-xl hover:bg-[#f2f2f2] flex-1 px-4"
+                  >
+                    <i class="ri-eye-line"></i> <span>Details</span>
+                  </p>
+                </NuxtLink>
+
                 <p
                   class="flex gap-4 rounded-br-xl rounded-bl-xl hover:bg-[#f2f2f2] items-center flex-1 px-4"
                 >
