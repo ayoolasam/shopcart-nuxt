@@ -6,6 +6,7 @@ export const useProductStore = defineStore("product", {
     subTotal: 0,
     totalAmount: 0,
     discountPercentage: 20,
+    shippingInformation: {},
 
     shipping: 500,
   }),
@@ -75,6 +76,11 @@ export const useProductStore = defineStore("product", {
       const discount = (this.totalAmount * this.discountPercentage) / 100;
       this.totalAmount = this.totalAmount - discount;
     },
+    addShippingDetails(shippingDetails) {
+      console.log(shippingDetails);
+      this.shippingInformation = { ...shippingDetails };
+    },
   },
+
   persist: true,
 });

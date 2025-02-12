@@ -93,13 +93,14 @@
 </template>
 
 <script setup>
-import shoe from "../../assets/images/3.jpg";
+
 import { useProductStore } from "../../stores/product";
 
 const productStore = useProductStore();
 definePageMeta({
   layout: "main",
 });
+
 
 const deleteFromCart = (product) => {
   productStore.deleteFromCart(product);

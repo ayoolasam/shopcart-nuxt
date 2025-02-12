@@ -7,14 +7,20 @@
         <div
           @click="setDelivery('delivery')"
           class="h-12 border-[#f2f2f2] border-[1px] flex gap-2 cursor-pointer transition duration-500 text-center justify-center items-center text-sm text-gray-500 rounded-md flex-1"
-          :class="{ 'bg-primary text-white': deliveryMethod === 'delivery' }"
+          :class="{
+            'bg-primary text-white':
+              shippingDetails.deliveryMethod === 'delivery',
+          }"
         >
           <i class="ri-truck-line"></i>
           <span>Delivery</span>
         </div>
         <div
           @click="setDelivery('pick Up')"
-          :class="{ 'bg-primary text-white': deliveryMethod === 'pick Up' }"
+          :class="{
+            'bg-primary text-white':
+              shippingDetails.deliveryMethod === 'pick Up',
+          }"
           class="h-12 rounded-md flex-1 border-[#f2f2f2] flex gap-2 text-center cursor-pointer transition duration-500 justify-center items-center text-sm text-gray-500 border-[1px]"
         >
           <i class="ri-box-3-line"></i>
@@ -24,6 +30,7 @@
       <div class="flex flex-col gap-[10px]">
         <label class="block">Full Name</label>
         <input
+          v-model="shippingDetails.fullName"
           class="h-12 border-[#f2f2f2] border-[1px] rounded-md w-full px-4 text-xs"
         />
       </div>
@@ -31,6 +38,7 @@
       <div class="flex flex-col gap-[10px]">
         <label class="block">Phone Number</label>
         <input
+          v-model="shippingDetails.phoneNumber"
           class="h-12 border-[#f2f2f2] border-[1px] placeholder:text-xs px-4 rounded-md text-xs w-full"
           placeholder="Enter Phone Number"
         />
@@ -38,6 +46,7 @@
       <div class="flex flex-col gap-[10px]">
         <label class="block">Address</label>
         <input
+          v-model="shippingDetails.address"
           class="h-12 border-[#f2f2f2] border-[1px] placeholder:text-xs px-4 rounded-md text-xs w-full"
           placeholder="Enter Address"
         />
@@ -46,7 +55,7 @@
         <label class="block">Country </label>
         <input
           @input="searchCountries"
-          v-model="country"
+          v-model="shippingDetails.country"
           class="h-12 border-[#f2f2f2] border-[1px] rounded-md text-xs w-full px-4"
         />
         <div
@@ -138,6 +147,7 @@
         </div>
       </div>
       <div
+        @click="saveShippingDetails"
         class="bg-primary text-white text-md rounded-md flex items-center justify-center w-full h-12"
       >
         <span>Pay now</span>
@@ -154,49 +164,63 @@ definePageMeta({
   layout: "main",
 });
 const productStore = useProductStore();
-const deliveryMethod = ref(null);
+
+// const deliveryMethod = ref(null);
 const countries = ref([]);
 const loading = ref(false);
 const toast = useToast();
 const dropDown = ref(false);
-const country = ref(null);
+
 const errorMessage = ref("");
 
+
+const shippingDetails = ref({
+  country: "",
+  address: "",
+  phoneNumber: "",
+  fullName: "",
+  deliveryMethod: "",
+});
+
 const setDelivery = (str) => {
-  deliveryMethod.value = str;
+  shippingDetails.value.deliveryMethod = str;
 };
 
 const listCountries = async () => {
-  if (country.value.length === 0) {
-    countries.value = [];
-    dropDown.value = false;
-    loading.value = false;
-    return;
-  }
-  let response;
-  try {
-    response = await axios.get(
-      `https://restcountries.com/v3.1/name/${country.value}`
-    );
-    if (response) {
-      countries.value = response.data;
-      if (countries.value.length === 0) {
-        dropDown.value = false;
-        errorMessage.value = "No Country found";
-      } else {
-        dropDown.value = true;
-        errorMessage.value = "";
-      }
-      loading.value = false;
-    }
-  } catch (e) {
-    loading.value = false;
-    if (e.message.includes("Network")) {
-      toast.error("Please check your internet connection");
-    } else {
-      errorMessage.value = e.response.data.message;
-    }
-  }
+  // if (country.value.length === 0) {
+  //   countries.value = [];
+  //   dropDown.value = false;
+  //   loading.value = false;
+  //   return;
+  // }
+  // let response;
+  // try {
+  //   response = await axios.get(
+  //     `https://restcountries.com/v3.1/name/${country.value}`
+  //   );
+  //   if (response) {
+  //     countries.value = response.data;
+  //     if (countries.value.length === 0) {
+  //       dropDown.value = false;
+  //       errorMessage.value = "No Country found";
+  //     } else {
+  //       dropDown.value = true;
+  //       errorMessage.value = "";
+  //     }
+  //     loading.value = false;
+  //   }
+  // } catch (e) {
+  //   loading.value = false;
+  //   if (e.message.includes("Network")) {
+  //     toast.error("Please check your internet connection");
+  //   } else {
+  //     errorMessage.value = e.response.data.message;
+  //   }
+  // }
+};
+
+const saveShippingDetails = () => {
+  productStore.addShippingDetails(shippingDetails.value);
 };
 
 const searchCountries = () => {
@@ -281,8 +305,8 @@ const searchCountries = () => {
 // };
 
 const chooseCountry = (str) => {
-  country.value = str;
-  dropDown.value = false;
+  // country.value = str;
+  // dropDown.value = false;
 };
 </script>
 

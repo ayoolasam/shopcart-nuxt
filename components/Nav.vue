@@ -1,5 +1,7 @@
 <template>
-  <div class="px-8 py-8 relative z-50 border-b-[1px] border-[#f2f2f2] flex justify-between blocks items-center">
+  <div
+    class="px-8 py-8 relative z-50 border-b-[1px] border-[#f2f2f2] flex justify-between blocks items-center"
+  >
     <NuxtLink :to="'/'">
       <h2 class="text-primary text-3xl font-bold">Shopcart</h2>
     </NuxtLink>
@@ -40,15 +42,15 @@
       >
         <div
           v-if="accountTab"
-          class="shadow-xl w-[160px] account-menu absolute left-8 rounded-md top-8 bg-white"
+          class="shadow-xl w-[160px] account-menu absolute left-8 rounded-xl top-8 bg-white"
         >
           <ul class="w-full h-full">
             <li
-              class="px-4 text-sm py-[5px] w-full h-full text-primary hover:bg-green-300 transition-all duration-500 hover:text-white flex gap-4 justify-center text-center"
+              class="px-[20px] text-sm py-[5px] w-full h-full text-primary hover:bg-green-300 transition-all duration-500 hover:text-white flex gap-4 text-center"
               v-for="(tab, index) in account"
               :key="index"
             >
-              <NuxtLink :to="tab.to">
+              <NuxtLink :to="tab.to" class="flex gap-4">
                 <i :class="tab.icon"></i>
                 <span class="font-bold hover:text-white">{{ tab.tab }}</span>
               </NuxtLink>
@@ -103,7 +105,7 @@ const account = [
   {
     tab: "Profile",
     icon: "ri-user-line",
-    to: "/",
+    to: "/user/profile",
   },
   {
     tab: "Orders",

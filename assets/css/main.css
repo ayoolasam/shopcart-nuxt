@@ -21,17 +21,17 @@
   animation-range: entry 0% cover 40%;
 }
 th {
-  @apply p-4  text-sm text-primary;
+  @apply p-4  text-sm text-primary whitespace-nowrap;
 }
 thead {
-  @apply bg-[#f2f2f2] ;
+  @apply bg-[#f2f2f2];
 }
 
 td {
-  @apply p-4 text-xs border-b-[1px] border-[#f2f2f2] text-center;
+  @apply p-4 text-xs border-b-[1px] whitespace-nowrap border-[#f2f2f2] text-center  cursor-pointer transition-all duration-300;
 }
-table{
-  @apply border-[1px] border-[#f2f2f2] ;
+table {
+  @apply border-[1px] border-[#f2f2f2];
 }
 
 @keyframes appear {
