@@ -81,6 +81,7 @@
         <div class="flex flex-col gap-[10px]">
           <label class="block">City</label>
           <input
+            v-model="shippingDetails.city"
             class="h-12 border-[#f2f2f2] border-[1px] placeholder:text-xs px-4 text-xs rounded-md w-full"
             placeholder="Enter City"
           />
@@ -88,6 +89,7 @@
         <div class="flex flex-col gap-[10px]">
           <label class="block">State</label>
           <input
+            v-model="shippingDetails.state"
             class="h-12 border-[#f2f2f2] border-[1px] placeholder:text-xs px-4 text-xs rounded-md w-full"
             placeholder="Enter State"
           />
@@ -95,6 +97,7 @@
         <div class="flex flex-col gap-[10px]">
           <label class="block">Zip Code</label>
           <input
+            v-model="shippingDetails.zipCode"
             class="h-12 border-[#f2f2f2] border-[1px] placeholder:text-xs px-4 text-xs rounded-md w-full"
             placeholder="Enter Zip Code"
           />
@@ -173,13 +176,15 @@ const dropDown = ref(false);
 
 const errorMessage = ref("");
 
-
 const shippingDetails = ref({
   country: "",
   address: "",
   phoneNumber: "",
   fullName: "",
   deliveryMethod: "",
+  city: "",
+  state: "",
+  zipCode: "",
 });
 
 const setDelivery = (str) => {
