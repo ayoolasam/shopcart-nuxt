@@ -77,7 +77,6 @@ export const useProductStore = defineStore("product", {
       this.totalAmount = this.totalAmount - discount;
     },
     addShippingDetails(shippingDetails) {
-      console.log(shippingDetails);
       this.shippingInformation = { ...shippingDetails };
     },
   },

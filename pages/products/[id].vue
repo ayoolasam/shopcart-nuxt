@@ -1,7 +1,7 @@
 <template>
   <div class="py-8 px-4">
     <NuxtLink to="/">
-      <div class="flex  gap-4 items-center">
+      <div class="flex gap-4 items-center">
         <div
           class="h-[40px] w-[40px] text-center flex items-center justify-center rounded-full bg-primary text-white"
         >
@@ -74,6 +74,7 @@
         </div>
         <div class="flex gap-4 p-4 text-xs w-full">
           <div
+            @click="addToCart(product)"
             class="xl:px-16 px-8 whitespace-nowrap xl:text-xs text-[10px] bg-primary hover:bg-white hover:text-primary hover:border-primary hover:border-[1px] text-white h-[50px] rounded-full flex items-center justify-center"
           >
             Add To Cart
@@ -83,10 +84,17 @@
           >
             Buy Now
           </div>
-          <div></div>
+        </div>
+        <div class="w-full mt-4">
+          <p
+            class="text-primary text-md w-[300px] h-12 rounded-md text-center cursor-pointer hover:bg-primary hover:text-white py-4 bg-[#f2f2f2]"
+          >
+            Review Product
+          </p>
         </div>
       </div>
     </div>
+    <!-- <Review /> -->
   </div>
 </template>
 
@@ -94,6 +102,8 @@
 import shoe from "../../assets/images/2.jpg";
 import { useRoute } from "vue-router";
 import { useToast } from "maz-ui";
+import { useProductStore } from "../../stores/product";
+import Review from "~/components/Review.vue";
 
 definePageMeta({
   layout: "main",
@@ -104,6 +114,7 @@ const product = ref({});
 const loading = ref(false);
 const image = ref();
 const toast = useToast();
+const productStore = useProductStore();
 const { $apiClient } = useNuxtApp();
 
 const fetchProduct = async () => {
@@ -123,6 +134,16 @@ const fetchProduct = async () => {
     } else {
       toast.error(e.message);
     }
+  }
+};
+
+const addToCart = (product) => {
+  const addProduct = productStore.addToCart(product);
+
+  if (!addProduct) {
+    toast.error("Product already added to Cart");
+  } else {
+    toast.success(`${product.name} added to Cart`);
   }
 };
 

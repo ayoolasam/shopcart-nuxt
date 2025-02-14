@@ -63,7 +63,7 @@
 
           <div
             @click="deleteFromCart(product)"
-            class="px-4 xl:px-12 bg-[#f6f6f6] text-primary hover:bg-primary hover:text-white py-4 rounded-md flex items-center gap-4"
+            class="px-4 xl:px-8 bg-[#f6f6f6] text-primary hover:bg-primary hover:text-white py-2 rounded-md flex items-center gap-4"
           >
             <i class="ri-delete-bin-7-fill"></i> <span>Delete</span>
           </div>
