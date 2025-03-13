@@ -1,6 +1,6 @@
 <template>
-  <div class="h-screen text-xs text-gray-600 py-8 px-4">
-    <div class="flex flex-col gap-4">
+  <div class="h-screen text-xs text-gray-600 py-8 px-8">
+    <div class="flex flex-col gap-4 my-8 ">
       <div class="flex gap-4">
         <div class="h-[80px] w-[80px] bg-primary rounded-full">
           <!-- <img src="" alt="profile-Image" class="h-full w-full" /> -->
@@ -18,11 +18,11 @@
       <div>
         <p class="flex gap-2 ml-6 items-center"> <i class="ri-calendar-line"></i>Joined March 24,2022</p>
       </div>
-      <div class="flex gap-4">
-        <span class="border-[1px] items-center rounded-md flex gap-4 border-[#f2f2f2] px-8 py-[5px]"
+      <div class="flex gap-4 flex-col xl:flex-row md:flex-row sm:flex-row">
+        <span class="border-[1px] items-center w-[300px]  rounded-md flex gap-4 border-[#f2f2f2] px-8 py-[5px]"
           > <i class="ri-calendar-line"></i>Obayomisamuel@gmail.com</span
         >
-        <span class="border-[1px] items-center rounded-md flex gap-4 border-[#f2f2f2] px-8 py-[5px]"> <i class="ri-phone-line"></i>09078329726</span>
+        <span class="border-[1px] items-center rounded-md flex w-[300px] xl:w-full4 gap-4 border-[#f2f2f2] px-8 py-[5px]"> <i class="ri-phone-line"></i>09078329726</span>
       </div>
     </div>
   </div>

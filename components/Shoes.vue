@@ -8,7 +8,7 @@
       <div
         v-for="(shoe, index) in shoes"
         :key="index"
-        class="h-[350px] blocks max-w-[300px] flex flex-col gap-[10px]"
+        class="h-[350px] cursor-pointer blocks max-w-[300px] flex flex-col gap-[10px]"
       >
         <div class="bg-#f2f2f2">
           <img
@@ -25,14 +25,14 @@
 
             <span>${{ shoe.price }}</span>
           </div>
-          <p class="text-gray-700 text-[8px]">{{ shoe.description }}</p>
+          <p class="text-gray-700 text-[8px] hover:underline hover:font-bold hover:text-primary">{{ shoe.description }}</p>
           <p class="flex items-center">
             <NuxtRating :rating-value="shoe.rating" />
             <span class="text-[8px]">({{ shoe.numReviews }})</span>
           </p>
           <button
             @click="addToCart(shoe)"
-            class="border-[1px] text-xs border-[#b9b9b9] w-[120px] py-2 text-black rounded-full hover:bg-primary hover:text-white"
+            class="border-[1px] text-xs cursor-pointer  border-[#b9b9b9] w-[120px] py-2 text-black rounded-full hover:bg-primary hover:text-white"
           >
             Add to Cart
           </button>
@@ -43,9 +43,7 @@
 </template>
 
 <script setup>
-import shoe from "../assets/images/heros.jpg";
-import shoe2 from "../assets/images/2.jpg";
-import shoe3 from "../assets/images/3.jpg";
+
 import { useToast } from "maz-ui";
 const { $apiClient } = useNuxtApp();
 import { useProductStore } from "../stores/product";

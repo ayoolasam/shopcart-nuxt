@@ -1,12 +1,21 @@
 <template>
   <div class="modal-overlay">
-    <div class="modal bg-white h-[350px] w-[400px] rounded-md px-4 py-6">
-      <h1 class="font-bold text-xl text-primary">Review</h1>
+    <div class="modal bg-white h-[370px] w-[400px] rounded-md px-8 py-6">
+      <div class="flex justify-between items-center">
+        <h1 class="font-bold text-xl text-primary">Review</h1>
+        <div
+          @click="closeModal"
+          class="w-[50px] h-[50px] rounded-full bg-primary flex hover:scale-120 transition-all duration-500 cursor-pointer justify-center items-center"
+        >
+          <i class="ri-close-line font-bold text-white"></i>
+        </div>
+      </div>
       <div class="mt-4 flex flex-col gap-4">
         <label class="text-sm">Review</label>
+
         <input
           placeholder="Type in Your Review "
-          v-mdel="review"
+          v-model="review"
           class="h-12 px-4 outline-none border-[1px] rounded-md text-xs placeholder:text-xs border-[#f2f2f2] w-full"
         />
       </div>
@@ -16,7 +25,7 @@
           :read-only="false"
           v-on:rating-selected="logRating"
           :rating-value="0"
-          :rating-size="50"
+          :rating-size="20"
         ></NuxtRating>
         <!-- <div class="flex items-center">
       <p>Rating :</p>
@@ -35,7 +44,11 @@
       <p>{{ rating }}</p>
     </div> -->
       </div>
-      <button class="mt-4 text-white h-12 rounded-xl w-full bg-primary">
+      <button
+        @click="reviewProduct"
+        :disabled="!review && !rating"
+        class="mt-4 text-white h-12 rounded-xl w-full bg-primary"
+      >
         Send Review
       </button>
     </div>
@@ -43,16 +56,45 @@
 </template>
 
 <script setup>
+import { useRoute } from "vue-router";
+import { useToast } from "maz-ui";
 const rating = ref(0);
-
+const emit = defineEmits(["closeModal"]);
+const { $apiClient } = useNuxtApp();
+const loading = ref(false);
 const review = ref("");
+const route = useRoute();
+const toast = useToast();
 const logRating = (ratingValue) => {
-
   rating.value = ratingValue;
-  console.log(rating.value);
 };
 
+const closeModal = () => {
+  emit("closeModal");
+};
 
+const reviewProduct = async () => {
+  try {
+    loading.value = true;
+    const response = await $apiClient.post(
+      `/api/v1/products/review/${route.params.id}`,
+      {
+        comment: review.value,
+        rating: rating.value,
+      }
+    );
+    if (response) {
+      toast.success("Review Sent Successfully");
+      closeModal();
+    }
+  } catch (e) {
+    if (e.message.includes("Network")) {
+      toast.error("Please check your internet connection");
+    } else {
+      toast.error(e.message);
+    }
+  }
+};
 </script>
 
 <style scoped>

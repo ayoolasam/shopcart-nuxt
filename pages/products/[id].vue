@@ -12,7 +12,10 @@
       </div>
     </NuxtLink>
 
-    <div class="w-full xl:h-[600px] flex gap-4 flex-col xl:flex-row mt-8">
+    <div
+      v-if="product"
+      class="w-full xl:h-[600px] flex gap-4 flex-col xl:flex-row mt-8"
+    >
       <div class="flex-1 flex flex-col gap-4 h-full">
         <div class="h-[80%]">
           <img
@@ -43,12 +46,15 @@
         <div
           class="px-4 py-12 border-b-[1px] border-[#f6f6f6] flex flex-col gap-2"
         >
-          <h1 class="text-3xl font-bold">{{ product.name }}</h1>
+          <h1 class="text-3xl font-bold">{{ product?.name }}</h1>
           <p class="font-normal text-xs text-gray-300">
-            {{ product.description }}
+            {{ product?.description }}
           </p>
           <p class="flex items-center">
-            <NuxtRating :rating-value="product.rating" />
+            <ClientOnly>
+              <NuxtRating :rating-value="product.rating" />
+            </ClientOnly>
+
             <span class="text-[8px]">({{ product.numReviews }})</span>
           </p>
         </div>
@@ -87,6 +93,7 @@
         </div>
         <div class="w-full mt-4">
           <p
+            @click="showModal = true"
             class="text-primary text-md w-[300px] h-12 rounded-md text-center cursor-pointer hover:bg-primary hover:text-white py-4 bg-[#f2f2f2]"
           >
             Review Product
@@ -94,7 +101,7 @@
         </div>
       </div>
     </div>
-    <!-- <Review /> -->
+    <Review v-if="showModal" @closeModal="showModal = false" />
   </div>
 </template>
 
@@ -110,6 +117,8 @@ definePageMeta({
 });
 
 const route = useRoute();
+const showModal = ref(false);
+
 const product = ref({});
 const loading = ref(false);
 const image = ref();

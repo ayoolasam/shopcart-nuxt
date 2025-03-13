@@ -30,6 +30,7 @@ export const useProductStore = defineStore("product", {
         return true;
       }
     },
+    
     deleteFromCart(product) {
       this.cart = this.cart.filter((item) => item._id !== product._id);
       this.updateCartTotals();
