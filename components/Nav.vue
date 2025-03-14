@@ -96,6 +96,13 @@
                 <span class="font-bold hover:text-white">{{ tab.tab }}</span>
               </NuxtLink>
             </li>
+            <li
+              @click="showCtaModal = true"
+              class="px-[20px] text-sm py-[5px] w-full h-full text-primary hover:bg-green-300 transition-all duration-500 hover:text-white flex gap-4 text-center"
+            >
+              <i class="ri-logout-box-r-line icon"></i>
+              <span class="font-bold hover:text-white">Log Out</span>
+            </li>
           </ul>
         </div>
         <div class="h-[30px] w-[30px] rounded-full bg-primary">
@@ -105,7 +112,7 @@
           <div class="text-xs">
             <p>{{ userStore.userData.FirstName }}</p>
             <p>
-              {{ userStore.userData.FirstName }} 
+              {{ userStore.userData.FirstName }}
               {{ userStore.userData.LastName }}
             </p>
           </div>
@@ -120,9 +127,14 @@
     >
       <i class="ri-menu-line"></i>
     </div>
-  
   </div>
-  <ctaModal Heading="Log Out" sub="Are you sure you want to Log Out" miniSub="You can Always Come Back" v-if="showCtaModal" @closeModal="showCtaModal= false"/>
+  <ctaModal
+    Heading="Log Out"
+    sub="Are you sure you want to Log Out"
+    miniSub="You can Always Come Back Later"
+    v-if="showCtaModal"
+    @closeModal="showCtaModal = false"
+  />
 </template>
 
 <script setup>
@@ -142,7 +154,7 @@ const toggleSideBar = () => {
 };
 const userStore = useUserStore();
 const showDropdown = ref(false);
-const showCtaModal = ref(true)
+const showCtaModal = ref(false);
 const productStore = useProductStore();
 const loading = ref(false);
 const products = ref([]);
@@ -171,11 +183,6 @@ const account = [
     tab: "Orders",
     icon: "ri-handbag-line",
     to: "/user/orders",
-  },
-  {
-    tab: "Log Out",
-    icon: "ri-logout-box-r-line icon",
-    to: "*",
   },
 ];
 const user = [

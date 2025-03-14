@@ -1,6 +1,6 @@
 <template>
-  <div class="modal-overlay">
-    <div class="modal bg-white h-[250px] w-[600px] rounded-md px-8 py-6">
+  <div class="modal-overlay px-8">
+    <div class="modal bg-white h-[250px] xl:w-[600px] md:w-[600px] sm:w-[400px] w-[350px] rounded-md px-8 py-6">
       <div class="flex justify-between items-center">
         <h1 class="font-bold text-xl text-primary">{{Heading}}</h1>
         <div
@@ -20,9 +20,10 @@
       <button
         @click="reviewProduct"
       
-        class="mt-4 text-white h-12 rounded-xl w-full bg-primary"
+        class="mt-4 text-white h-12 flex justify-center items-center rounded-xl w-full bg-primary"
       >
-        Log Out
+        <span v-if=!loading>Log Out</span>
+        <MazSpinner size="2em" v-else color="white"/>
       </button>
     </div>
   </div>
@@ -47,7 +48,7 @@ const closeModal = () => {
   emit("closeModal");
 };
 
-const reviewProduct = async () => {
+const logOut = async () => {
   try {
     loading.value = true;
     const response = await $apiClient.post(

@@ -30,9 +30,10 @@
       <button
         @click="login"
         :disabled="!email || !password"
-        class="py-[14px] bg-primary w-full text-white rounded-md"
+        class="h-12 bg-primary w-full flex items-center justify-center text-white rounded-md"
       >
-        Sign in
+        <span v-if="!loading">Sign In</span>
+        <MazSpinner v-else size="2em" color="white"/>
       </button>
       <div class="text-xs text-center text-primary">
         <NuxtLink to="/Register">
