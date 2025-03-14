@@ -13,6 +13,7 @@
             class="w-full text-xs bg-[#f2f2f2] h-12 focus:outline-none px-[10px] focus:border-[1px] focus:border-green-300 rounded-md placeholder:text-xs"
             placeholder="email"
             type="email"
+            v-model="email"
           />
         </div>
         <div>
@@ -21,11 +22,16 @@
             class="w-full text-xs bg-[#f2f2f2] px-[10px] h-12 rounded-md focus:outline-none focus:border-[1px] focus:border-green-300 placeholder:text-xs"
             placeholder="password..."
             type="password"
+            v-model="password"
           />
         </div>
       </div>
 
-      <button class="py-[14px] bg-primary w-full text-white rounded-md">
+      <button
+        @click="login"
+        :disabled="!email || !password"
+        class="py-[14px] bg-primary w-full text-white rounded-md"
+      >
         Sign in
       </button>
       <div class="text-xs text-center text-primary">
@@ -38,9 +44,49 @@
 </template>
 
 <script setup>
+import axios from "axios";
+import { useToast } from "maz-ui";
+import { useRouter } from "vue-router";
+import { useUserStore } from "#imports";
+
 definePageMeta({
   layout: "main",
 });
+
+const { $apiClient } = useNuxtApp();
+const userStore = useUserStore();
+const toast = useToast();
+const loading = ref(false);
+const router = useRouter();
+const email = ref("");
+const password = ref("");
+
+const login = async () => {
+  try {
+    loading.value = true;
+    const response = await $apiClient.post("/api/v1/login", {
+      password: password.value,
+      email: email.value,
+    });
+    if (response) {
+      userStore.updateUserData(response.data.data.userDetails);
+      userStore.updateToken(response.data.data.token);
+
+      userStore.updateEmail(response.data.data.userDetails.email);
+      userStore.updateRole(response.data.data.userDetails.role);
+      toast.success("Login successful");
+
+      loading.value = false;
+      router.push("/");
+    }
+  } catch (e) {
+    if (e.message.includes("Network")) {
+      toast.error("Please check your internet connection");
+    } else {
+      toast.error(e.response.data.message);
+    }
+  }
+};
 </script>
 
 <style lang="scss" scoped></style>

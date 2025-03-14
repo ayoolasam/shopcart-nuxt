@@ -56,7 +56,7 @@
       <div
         class="relative cursor-pointer px-4 mr-8"
         @click.stop="showUserTab"
-        v-if="!userLoggedIn"
+        v-if="!userStore.userData"
       >
         <i class="ri-user-line font-bold text-sm"></i>
         <div
@@ -103,8 +103,11 @@
         </div>
         <div class="gap-[5px] flex items-center">
           <div class="text-xs">
-            <p>Hi, Pablo</p>
-            <p>Pablo Cassanova</p>
+            <p>{{ userStore.userData.FirstName }}</p>
+            <p>
+              {{ userStore.userData.FirstName }} 
+              {{ userStore.userData.LastName }}
+            </p>
           </div>
 
           <i class="ri-arrow-down-s-line text-[20px] font-semibold"></i>
@@ -117,7 +120,9 @@
     >
       <i class="ri-menu-line"></i>
     </div>
+  
   </div>
+  <ctaModal Heading="Log Out" sub="Are you sure you want to Log Out" miniSub="You can Always Come Back" v-if="showCtaModal" @closeModal="showCtaModal= false"/>
 </template>
 
 <script setup>
@@ -127,13 +132,17 @@ const emit = defineEmits(["show"]);
 import { useProductStore } from "../stores/product";
 import { NuxtLink } from "#components";
 const { $apiClient } = useNuxtApp();
+import { useUserStore } from "#imports";
 import axios from "axios";
 import { useToast } from "maz-ui";
+import ctaModal from "./ctaModal.vue";
 
 const toggleSideBar = () => {
   emit("show");
 };
+const userStore = useUserStore();
 const showDropdown = ref(false);
+const showCtaModal = ref(true)
 const productStore = useProductStore();
 const loading = ref(false);
 const products = ref([]);
@@ -163,17 +172,22 @@ const account = [
     icon: "ri-handbag-line",
     to: "/user/orders",
   },
+  {
+    tab: "Log Out",
+    icon: "ri-logout-box-r-line icon",
+    to: "*",
+  },
 ];
 const user = [
   {
     tab: "Login",
 
-    to: "Login",
+    to: "/Login",
   },
   {
     tab: "Register",
 
-    to: "Register",
+    to: "/Register",
   },
 ];
 const activateToggle = () => {
