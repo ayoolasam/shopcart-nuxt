@@ -1,5 +1,5 @@
 <template>
-  <div  class="modal-overlay xl:hidden md:hidden">
+  <div class="modal-overlay xl:hidden md:hidden">
     <div
       class="bg-primary py-4 h-full absolute right-0 top-0 transition-all duration-1000 w-[270px]"
     >
@@ -12,7 +12,9 @@
           :key="index"
           class="w-full p-4 text-center text-xl font-bold text-white"
         >
-          {{ item.name }}
+          <NuxtLink :to="item.link">
+            <span>{{ item.name }}</span>
+          </NuxtLink>
         </li>
       </ul>
     </div>
@@ -29,11 +31,11 @@ const emitter = () => {
 const nav = [
   {
     name: " Profile",
-    link: "/profile",
+    link: "/user/profile",
   },
   {
     name: "Orders",
-    link: "/orders",
+    link: "/user/orders",
   },
   {
     name: "LogOut",
