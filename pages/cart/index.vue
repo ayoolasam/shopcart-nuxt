@@ -9,7 +9,7 @@
         Cart
       </h1>
 
-      <div v-if="productStore.cart.length === 0" class="mt-8">
+      <div v-if="!productStore?.cart?.length" class="mt-8">
         No Products In Cart Yet
       </div>
 
@@ -24,6 +24,7 @@
             class="md:h-[100px] xl:h-[100px] h-[100px] sm:h-[150px] xl:w-[200px] md:w-[180px] w-full"
           >
             <img
+              v-if="product.images"
               :src="product.images[0].url"
               class="object-cover h-full w-full rounded-lg object-center"
               alt=""
@@ -44,7 +45,7 @@
               class="h-[30px] flex justify-between items-center rounded-lg w-[80px] px-4 bg-[#f6f6f6]"
             >
               <i
-                @click="productStore.addToExistingProduct(product)"
+                @click="productStore.addToCart(product)"
                 class="ri-add-line"
               ></i>
               <span class="text-xs">{{ product.numOfProducts }}</span>
@@ -93,14 +94,12 @@
 </template>
 
 <script setup>
-
 import { useProductStore } from "../../stores/product";
 
 const productStore = useProductStore();
 definePageMeta({
   layout: "main",
 });
-
 
 const deleteFromCart = (product) => {
   productStore.deleteFromCart(product);

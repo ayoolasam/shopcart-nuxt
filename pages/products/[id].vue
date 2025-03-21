@@ -17,13 +17,19 @@
       class="w-full xl:h-[600px] flex gap-4 flex-col xl:flex-row mt-8"
     >
       <div class="flex-1 flex flex-col gap-4 h-full">
-        <div class="h-[80%]">
+        <div class="h-[80%] relative">
           <img
             v-if="product?.images"
             :src="image"
             alt="product-image"
-            class="h-full w-full rounded-lg object-cover object-center"
+            class="h-full w-full transition-all duration-500 rounded-lg object-cover object-center"
           />
+          <i
+            class="ri-arrow-left-s-line absolute top-[50%] left-4 font-bold text-3xl text-primary"
+          ></i>
+          <i
+            class="ri-arrow-right-s-line font-bold text-3xl absolute top-[50%] right-4 text-primary"
+          ></i>
         </div>
         <div
           class="gap-4 grid w-full place-items-center md:grid-cols-4 sm:grid-cols-3 grid-cols-2 xl:grid-cols-4"
@@ -67,21 +73,27 @@
           class="px-4 py-8 flex gap-6 items-center border-b-[1px] border-[#f6f6f6]"
         >
           <div
-            class="xl:w-[200px] xl:h-[70px] w-[120px] h-[50px] rounded-full xl:px-8 px-4 text-lg flex items-center text-primary justify-between bg-[#f6f6f6]"
+            class="xl:w-[200px] cursor-pointer xl:h-[70px] w-[120px] h-[50px] rounded-full xl:px-8 px-4 text-lg flex items-center text-primary justify-between bg-[#f6f6f6]"
           >
-            <i class="ri-add-line"></i>
-            <span>1</span>
-            <i class="ri-subtract-line"></i>
+            <i
+              @click="productStore.addToExistingProduct(product)"
+              class="ri-add-line"
+            ></i>
+            <span>4</span>
+            <i
+              @click="productStore.subTractFromExistingProduct(product)"
+              class="ri-subtract-line"
+            ></i>
           </div>
           <div class="text-xs">
-            <p>Only 12 Items left</p>
+            <p>Only {{ product.quantity }} Items left</p>
             <p>Dont Miss Out</p>
           </div>
         </div>
         <div class="flex gap-4 p-4 text-xs w-full">
           <div
             @click="addToCart(product)"
-            class="xl:px-16 px-8 whitespace-nowrap xl:text-xs text-[10px] bg-primary hover:bg-white hover:text-primary hover:border-primary hover:border-[1px] text-white h-[50px] rounded-full flex items-center justify-center"
+            class="xl:px-16 hover:cursor-pointer px-8 whitespace-nowrap xl:text-xs text-[10px] bg-primary hover:bg-white hover:text-primary hover:border-primary hover:border-[1px] text-white h-[50px] rounded-full flex items-center justify-center"
           >
             Add To Cart
           </div>

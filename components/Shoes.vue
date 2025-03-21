@@ -20,19 +20,23 @@
         <div class="flex flex-col gap-2">
           <div class="flex justify-between text-center text-sm font-bold">
             <NuxtLink :to="`/products/${shoe._id}`">
-              <span>{{ shoe.name }}</span>
+              <span class="hover:underline">{{ shoe.name }}</span>
             </NuxtLink>
 
             <span>${{ shoe.price }}</span>
           </div>
-          <p class="text-gray-700 text-[8px] hover:underline hover:font-bold hover:text-primary">{{ shoe.description }}</p>
+          <p
+            class="text-gray-700 text-[8px] hover:underline hover:font-bold hover:text-primary"
+          >
+            {{ shoe.description }}
+          </p>
           <p class="flex items-center">
             <NuxtRating :rating-value="shoe.rating" />
             <span class="text-[8px]">({{ shoe.numReviews }})</span>
           </p>
           <button
             @click="addToCart(shoe)"
-            class="border-[1px] text-xs cursor-pointer  border-[#b9b9b9] w-[120px] py-2 text-black rounded-full hover:bg-primary hover:text-white"
+            class="border-[1px] text-xs cursor-pointer border-[#b9b9b9] w-[120px] py-2 text-black rounded-full hover:bg-primary hover:text-white"
           >
             Add to Cart
           </button>
@@ -43,7 +47,6 @@
 </template>
 
 <script setup>
-
 import { useToast } from "maz-ui";
 const { $apiClient } = useNuxtApp();
 import { useProductStore } from "../stores/product";
@@ -72,11 +75,9 @@ const listShoes = async () => {
 const addToCart = (product) => {
   const addProduct = productStore.addToCart(product);
 
-  if (!addProduct){
-    toast.error("Product already added to Cart")
-  }
-
-  else {
+  if (!addProduct) {
+    toast.error("Product already added to Cart");
+  } else {
     toast.success(`${product.name} added to Cart`);
   }
 };

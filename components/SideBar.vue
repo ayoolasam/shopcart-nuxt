@@ -28,15 +28,15 @@ const emitter = () => {
 
 const nav = [
   {
-    name: "Deals",
-    link: "/",
+    name: " Profile",
+    link: "/profile",
   },
   {
-    name: "Whats New",
-    link: "/shop",
+    name: "Orders",
+    link: "/orders",
   },
   {
-    name: "Delivery",
+    name: "LogOut",
     link: "/about",
   },
 ];

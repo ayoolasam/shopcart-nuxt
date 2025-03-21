@@ -15,17 +15,20 @@ export default defineNuxtConfig({
       },
       viewport: "width=device-width, initial-scale=1",
       title: "Shop Cart",
-      link: [
-        {
-          rel: "stylesheet",
-          href: "/fonts/sfprodisplay.css",
-        },
-      ],
+      // link: [
+      //   {
+      //     rel: "stylesheet",
+      //     href: "/fonts/sfprodisplay.css",
+      //   },
+      // ],
     },
   },
 
   compatibilityDate: '2024-11-01',
- 
+
+  imports: {
+    dirs: ["stores"],
+  }, 
 
   runtimeConfig:{
     public: {
@@ -87,9 +90,7 @@ export default defineNuxtConfig({
 
 
   
-  imports: {
-    dirs: ["stores"],
-  },
+
 
   // vite:{
   //   plugins:[

@@ -33,7 +33,9 @@
           :key="index"
           class="text-xs p-4 text-gray-600 hover:underline cursor-pointer hover:text-primary"
         >
-          {{ product.name }}
+          <NuxtLink :to="`/products/${product._id}`">
+            {{ product.name }}
+          </NuxtLink>
         </p>
       </div>
     </div>
@@ -56,7 +58,9 @@
       <div
         class="relative cursor-pointer px-4 mr-8"
         @click.stop="showUserTab"
-        v-if="!userStore.userData"
+        v-if="
+          userStore.userData && Object.keys(userStore.userData).length === 0
+        "
       >
         <i class="ri-user-line font-bold text-sm"></i>
         <div
@@ -105,8 +109,19 @@
             </li>
           </ul>
         </div>
-        <div class="h-[30px] w-[30px] rounded-full bg-primary">
-          <!-- <img src="/" alt="profile-picture" /> -->
+        <div v-if="userStore.userData">
+          <span
+            v-if="!userStore.userData.avatar"
+            class="border-[1px] border-[#f2f2f2] h-[40px] text-xs flex items-center justify-center w-[40px] rounded-full"
+            >{{ userStore?.userData?.FirstName ? userStore.userData.FirstName[0] : '' }}{{ userStore?.userData?.LastName ? userStore.userData.LastName[0] : '' }}</span
+          >
+          <div v-else class="h-[40px] w-[40px] rounded-full">
+            <img
+              :src="userStore.userData.avatar"
+              alt="profile-picture"
+              class="object-cover object-center h-full w-full rounded-full"
+            />
+          </div>
         </div>
         <div class="gap-[5px] flex items-center">
           <div class="text-xs">
@@ -117,7 +132,10 @@
             </p>
           </div>
 
-          <i class="ri-arrow-down-s-line text-[20px] font-semibold"></i>
+          <i
+            v-if="userStore.userData"
+            class="ri-arrow-down-s-line text-[20px] font-semibold"
+          ></i>
         </div>
       </div>
     </div>

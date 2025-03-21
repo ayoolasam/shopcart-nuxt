@@ -14,6 +14,7 @@
           <input
             class="w-full text-xs bg-[#f2f2f2] h-12 focus:outline-none px-[10px] focus:border-[1px] focus:border-green-300 rounded-md placeholder:text-xs"
             placeholder="First Name"
+            v-model="firstName"
           />
         </div>
         <div class="">
@@ -21,6 +22,7 @@
           <input
             class="w-full text-xs bg-[#f2f2f2] h-12 focus:outline-none px-[10px] focus:border-[1px] focus:border-green-300 rounded-md placeholder:text-xs"
             placeholder="Last Name"
+            v-model="LastName"
           />
         </div>
         <div class="">
@@ -28,6 +30,7 @@
           <input
             class="w-full text-xs bg-[#f2f2f2] h-12 focus:outline-none px-[10px] focus:border-[1px] focus:border-green-300 rounded-md placeholder:text-xs"
             placeholder="email"
+            v-model="email"
           />
         </div>
         <div>
@@ -35,15 +38,20 @@
           <input
             class="w-full text-xs bg-[#f2f2f2] px-[10px] h-12 rounded-md focus:outline-none focus:border-[1px] focus:border-green-300 placeholder:text-xs"
             placeholder="password..."
+            v-model="password"
           />
         </div>
       </div>
 
       <div class="text-center">
         <button
-          class="py-[14px] mb-[5px] bg-primary w-full text-white rounded-md"
+         @click="Register"
+        :disabled="!email || !password || !firstName || !LastName"
+          class="py-[14px] mb-[5px] bg-primary w-full text-white flex items-center justify-center rounded-md"
         >
-          Sign Up
+        <span v-if="!loading">Sign Up</span>
+        <MazSpinner v-else size="2em" color="white"/>
+          
         </button>
         <NuxtLink to="/Login">
           <span class="text-xs text-primary"> Have an Account? Log In</span>
@@ -54,9 +62,51 @@
 </template>
 
 <script setup>
+import { useToast } from "maz-ui";
+import { useRouter } from "vue-router";
+import { useUserStore } from "#imports";
 definePageMeta({
   layout: "main",
 });
+
+
+
+const { $apiClient } = useNuxtApp();
+const userStore = useUserStore();
+const toast = useToast();
+const loading = ref(false);
+const router = useRouter();
+const email = ref("");
+const password = ref("");
+const firstName = ref("")
+const LastName = ref("")
+
+const Register = async () => {
+  try { 
+    loading.value = true;
+    const response = await $apiClient.post("/api/v1/Register", {
+      password: password.value,
+      email: email.value,
+      FirstName: firstName.value,
+      LastName: LastName.value,
+
+    });
+    if (response) {
+      loading.value = false;
+      toast.success("Registration successful");
+
+     
+      router.push("/Login");
+    }
+  } catch (e) {
+    if (e.message.includes("Network")) {
+      toast.error("Please check your internet connection");
+    } else {
+      toast.error(e.response.data.message);
+    }
+  }
+};
+
 </script>
 
 <style lang="scss" scoped></style>
