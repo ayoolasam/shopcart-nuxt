@@ -12,8 +12,34 @@
       </div>
     </NuxtLink>
 
+<div v-if="loading" class="w-full xl:h-[600px] flex gap-4 flex-col xl:flex-row mt-8 ">
+<div class="flex-1 flex flex-col gap-4  rounded-md">
+  <div class="skeleton w-full xl:h-[80%] h-[400px]"></div>
+  <div class="grid grid-cols-2 xl:grid-cols-4 w-full place-items-center justify-between gap-4">
+    <div v-for="(n,ind) in 4" :index="ind" class="rounded-lg w-[130px] h-[100px] skeleton"></div>
+  </div>
+  
+</div>
+<div class="flex-1 py-8 px-4 rounded-md flex flex-col gap-12">
+  <div class="flex-col gap-4 flex">
+    <div class="w-[60%] h-[50px] rounded-md skeleton"></div>
+    <div class="w-[70%] h-[20px] rounded-md skeleton"></div>
+    <div class="w-[40%] h-[50px] rounded-md skeleton"></div>
+  </div>
+  <div class="flex-col gap-4 flex">
+    <div class="w-[60%] h-[50px] rounded-md skeleton"></div>
+
+  </div>
+  <div class="flex-col gap-4 flex">
+    <div class="w-full h-[50px] rounded-md skeleton"></div>
+    <div class="w-[70%] h-[20px] rounded-md skeleton"></div>
+
+  </div>
+</div>
+</div>
+
     <div
-      v-if="product"
+      v-else
       class="w-full xl:h-[600px] flex gap-4 flex-col xl:flex-row mt-8"
     >
       <div class="flex-1 flex flex-col gap-4 h-full">
@@ -85,12 +111,15 @@
               class="ri-subtract-line"
             ></i>
           </div>
-          <div class="text-xs">
-            <p>Only {{ product.quantity }} Items left</p>
-            <p>Dont Miss Out</p>
+          <div class="text-xs flex xl:justify-start justify-center">
+            <div>
+              <p>Only {{ product.quantity }} Items left</p>
+              <p>Dont Miss Out</p>
+            </div>
+            
           </div>
         </div>
-        <div class="flex gap-4 p-4 text-xs w-full">
+        <div class="flex gap-4 p-4 text-xs xl:justify-start justify-center w-full">
           <div
             @click="addToCart(product)"
             class="xl:px-16 hover:cursor-pointer px-8 whitespace-nowrap xl:text-xs text-[10px] bg-primary hover:bg-white hover:text-primary hover:border-primary hover:border-[1px] text-white h-[50px] rounded-full flex items-center justify-center"
@@ -103,10 +132,10 @@
             Buy Now
           </div>
         </div>
-        <div class="w-full mt-4">
+        <div class="w-full mt-4 flex xl:justify-start  justify-center">
           <p
             @click="showModal = true"
-            class="text-primary text-md w-[300px] h-12 rounded-md text-center cursor-pointer hover:bg-primary hover:text-white py-4 bg-[#f2f2f2]"
+            class="text-primary text-md  w-[300px] h-12 flex items-center justify-center xl:text-md text-xs  rounded-md text-center cursor-pointer hover:bg-primary hover:text-white py-4 bg-[#f2f2f2]"
           >
             Review Product
           </p>
@@ -132,7 +161,7 @@ const route = useRoute();
 const showModal = ref(false);
 
 const product = ref({});
-const loading = ref(false);
+const loading = ref(true);
 const image = ref();
 const toast = useToast();
 const productStore = useProductStore();

@@ -3,9 +3,21 @@
     <h2 class="text-3xl font-bold">Shoes</h2>
 
     <div
-      class="w-full p-4 rounded-md grid grid-cols-1 place-items-center sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-4 gap-4"
+      class="w-full px-2 py-4 rounded-md grid grid-cols-1 place-items-center sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-4 gap-6"
     >
+    <div v-if="loading" v-for="(n,ind) in 8" :key="ind" class="h-[350px] rounded-md w-[300px] flex flex-col gap-4 ">
+<div class="h-[60%] w-full skeleton">
+
+</div>
+<div class="flex justify-between ">
+  <div class="w-[100px] h-[10px] skeleton"></div>
+  <div class="w-[100px] h-[10px] skeleton"></div>
+</div>
+<div class="w-[200px] skeleton h-[10px] rounded-md"></div>
+<div class="w-[150px] py-4 skeleton h-[20px] rounded-xl"></div>
+    </div>
       <div
+      v-else
         v-for="(shoe, index) in shoes"
         :key="index"
         class="h-[350px] cursor-pointer blocks max-w-[300px] flex flex-col gap-[10px]"
@@ -52,7 +64,7 @@ const { $apiClient } = useNuxtApp();
 import { useProductStore } from "../stores/product";
 const shoes = ref([]);
 const toast = useToast();
-const loading = ref(false);
+const loading = ref(true);
 const productStore = useProductStore();
 
 const listShoes = async () => {

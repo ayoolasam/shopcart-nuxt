@@ -107,6 +107,7 @@ const reviewProduct = async () => {
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 1000;
   display: flex;
+  padding:20px;
   justify-content: center;
   align-items: center;
 }

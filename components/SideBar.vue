@@ -48,6 +48,10 @@ const nav = [
     link: "/user/profile",
   },
   {
+    name: "Cart",
+    link: "/cart",
+  },
+  {
     name: "Orders",
     link: "/user/orders",
   },
@@ -55,6 +59,7 @@ const nav = [
     name: "LogOut",
     link: "/",
   },
+ 
 ];
 const navnotLogged = [
   {
