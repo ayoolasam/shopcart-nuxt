@@ -32,8 +32,8 @@ export default defineNuxtConfig({
 
   runtimeConfig:{
     public: {
-      apiBaseUrl:'http://localhost:7000'
-      //  apiBaseUrl:'https://shopcart-backend-bnou.onrender.com'
+      // apiBaseUrl:'http://localhost:7000'
+       apiBaseUrl:'https://shopcart-backend-bnou.onrender.com'
   },
 
   },
