@@ -286,14 +286,13 @@ const Order = async () => {
       loading.value = false;
       paymentMethod.value = false;
       productStore.clearCart();
-      if(response.data.data.payment){
-window.location.href = response.data.data.payment.data.authorization_url;
+      if (response.data.data.payment) {
+        window.location.href =
+          response.data.data.payment.data.authorization_url;
+      } else {
+        toast.success("Order Received successfully");
+        router.push("/user/orders");
       }
-      else{ 
-         router.push("/user/orders")
-        }
-    
-      toast.success("Order Received successfully");
     }
   } catch (e) {
     if (e.message.includes("Network")) {

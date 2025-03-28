@@ -20,6 +20,13 @@ function formatDate(timestamp) {
   }
 }
 
+function formatToNaira(amount) {
+  return amount.toLocaleString("en-NG", {
+    style: "currency",
+    currency: "NGN",
+  });
+}
+
 function formatTime(timestamp) {
   const date = new Date(timestamp);
   return date.toLocaleTimeString("en-US", {
@@ -60,4 +67,5 @@ export {
   formatTime,
   convertFileSize,
   truncateFileName,
+  formatToNaira,
 };

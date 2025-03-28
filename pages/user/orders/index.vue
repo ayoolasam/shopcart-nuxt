@@ -32,10 +32,11 @@
             >
               {{ order.orderStatus }}
             </td>
-            <td>{{ order.totalAmount }}</td>
+            <td class="text-[rgba(26,26,26,0.7)] font-semibold">{{ formatToNaira(order.totalAmount) }}</td>
             <td
               :class="{
-                'text-green-500': order.paymentInfo.paymentStatus === 'Paid',
+                'text-green-500':
+                  order.paymentInfo.paymentStatus === 'Successfull',
                 'text-red-500': order.paymentInfo.paymentStatus === 'Not Paid',
                 'text-orange-500':
                   order.paymentInfo.paymentStatus === 'Pending',
@@ -54,7 +55,10 @@
                 v-if="actions && ind === index"
                 class="h-[70px] actions-menu top-8 shadow-xl flex flex-col z-50 right-4 absolute bg-white w-[150px] rounded-md"
               >
-                <NuxtLink :to='`/user/orders/${order._id}`' class="flex-1 w-full">
+                <NuxtLink
+                  :to="`/user/orders/${order._id}`"
+                  class="flex-1 w-full"
+                >
                   <p
                     class="flex h-full w-full gap-4 items-center rounded-tr-xl rounded-tl-xl hover:bg-[#f2f2f2] flex-1 px-4"
                   >
@@ -135,6 +139,17 @@ const toggleActions = (id) => {
   actions.value = !actions.value;
   ind.value = id;
 };
+
+function formatToNaira(amount) {
+  if (amount == null || isNaN(amount)) {
+    return "₦0.00"; 
+  }
+  return amount.toLocaleString("en-NG", {
+    style: "currency",
+    currency: "NGN",
+    currencyDisplay: "narrowSymbol",
+  });
+}
 
 onMounted(() => {
   document.addEventListener("click", (e) => {
