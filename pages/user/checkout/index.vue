@@ -286,7 +286,13 @@ const Order = async () => {
       loading.value = false;
       paymentMethod.value = false;
       productStore.clearCart();
-      router.push("/user/orders");
+      if(response.data.data.payment){
+window.location.href = response.data.data.payment.data.authorization_url;
+      }
+      else{ 
+         router.push("/user/orders")
+        }
+    
       toast.success("Order Received successfully");
     }
   } catch (e) {

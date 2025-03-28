@@ -1,5 +1,5 @@
 <template>
-  <div class="h-screen p-8">
+  <div class="overflow-y-auto p-8">
     <p class="font-bold text-primary">Order History</p>
     <div class="overflow-x-auto w-full">
       <table class="w-full mt-8">
@@ -54,7 +54,7 @@
                 v-if="actions && ind === index"
                 class="h-[70px] actions-menu top-8 shadow-xl flex flex-col z-50 right-4 absolute bg-white w-[150px] rounded-md"
               >
-                <NuxtLink to="/user/orders/1234" class="flex-1 w-full">
+                <NuxtLink :to='`/user/orders/${order._id}`' class="flex-1 w-full">
                   <p
                     class="flex h-full w-full gap-4 items-center rounded-tr-xl rounded-tl-xl hover:bg-[#f2f2f2] flex-1 px-4"
                   >
