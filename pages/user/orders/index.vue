@@ -6,11 +6,12 @@
         <thead>
           <tr>
             <th>Order Id</th>
-            <th>Date</th>
+
             <th>Status</th>
             <th>Total Amount</th>
             <th>Paid</th>
             <th>Payment Method</th>
+            <th>Date</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -20,28 +21,30 @@
             :key="index"
             class="hover:bg-green-300"
           >
-            <td>{{ order.id }}</td>
-            <td>{{ order.Date }}</td>
+            <td>{{ order._id }}</td>
+
             <td
               :class="{
-                'text-orange-400 font-bold': order.status === 'processing',
-                'text-green-400 font-bold': order.status === 'delivered',
-                'text-red-500 font-bold': order.status === 'cancelled',
+                'text-orange-400 font-bold': order.orderStatus === 'Processing',
+                'text-green-400 font-bold': order.orderStatus === 'delivered',
+                'text-red-500 font-bold': order.orderStatus === 'cancelled',
               }"
             >
-              {{ order.status }}
+              {{ order.orderStatus }}
             </td>
-            <td>{{ order.Total }}</td>
+            <td>{{ order.totalAmount }}</td>
             <td
               :class="{
-                'text-green-500': order.Paid === 'Paid',
-                'text-red-500': order.Paid === 'Not Paid',
-                'text-orange-500': order.Paid === 'Pending',
+                'text-green-500': order.paymentInfo.paymentStatus === 'Paid',
+                'text-red-500': order.paymentInfo.paymentStatus === 'Not Paid',
+                'text-orange-500':
+                  order.paymentInfo.paymentStatus === 'Pending',
               }"
             >
-              {{ order.Paid }}
+              {{ order.paymentInfo.paymentStatus }}
             </td>
-            <td>{{ order.pMethod }}</td>
+            <td>{{ order.paymentMethod }}</td>
+            <td>{{ formatDate(order.createdAt) }}</td>
             <td class="relative">
               <i
                 @click.stop="toggleActions(index)"
@@ -74,53 +77,59 @@
 </template>
 
 <script setup>
+import { useToast } from "maz-ui";
 definePageMeta({
   layout: "main",
 });
+const { $apiClient } = useNuxtApp();
 const actions = ref(false);
 const ind = ref(null);
-const orders = [
-  {
-    id: "12345678",
-    Date: "23-43-56",
-    status: "processing",
-    Total: 23456,
-    Paid: "Paid",
-    pMethod: "COD",
-  },
-  {
-    id: "12345678",
-    Date: "23-43-56",
-    status: "delivered",
-    Total: 23456,
-    Paid: "Not Paid",
-    pMethod: "COD",
-  },
-  {
-    id: "12345678",
-    Date: "23-43-56",
-    status: "cancelled",
-    Total: 23456,
-    Paid: "Pending",
-    pMethod: "COD",
-  },
-  {
-    id: "12345678",
-    Date: "23-43-56",
-    status: "processing",
-    Total: 23456,
-    Paid: "Paid",
-    pMethod: "COD",
-  },
-  {
-    id: "12345678",
-    Date: "23-43-56",
-    status: "processing",
-    Total: 23456,
-    Paid: "Paid",
-    pMethod: "COD",
-  },
-];
+const toast = useToast();
+const loading = ref(false);
+
+const orders = ref([]);
+// const orders = [
+//   {
+//     id: "12345678",
+//     Date: "23-43-56",
+//     status: "processing",
+//     Total: 23456,
+//     Paid: "Paid",
+//     pMethod: "COD",
+//   },
+//   {
+//     id: "12345678",
+//     Date: "23-43-56",
+//     status: "delivered",
+//     Total: 23456,
+//     Paid: "Not Paid",
+//     pMethod: "COD",
+//   },
+//   {
+//     id: "12345678",
+//     Date: "23-43-56",
+//     status: "cancelled",
+//     Total: 23456,
+//     Paid: "Pending",
+//     pMethod: "COD",
+//   },
+//   {
+//     id: "12345678",
+//     Date: "23-43-56",
+//     status: "processing",
+//     Total: 23456,
+//     Paid: "Paid",
+//     pMethod: "COD",
+//   },
+//   {
+//     id: "12345678",
+//     Date: "23-43-56",
+//     status: "processing",
+//     Total: 23456,
+//     Paid: "Paid",
+//     pMethod: "COD",
+//   },
+// ];
 
 const toggleActions = (id) => {
   actions.value = !actions.value;
@@ -133,7 +142,25 @@ onMounted(() => {
       actions.value = false;
     }
   });
+
+  currentUserOrders();
 });
+
+const currentUserOrders = async () => {
+  try {
+    loading.value = true;
+    const response = await $apiClient.get(`/api/v1/user/orders`);
+    if (response) {
+      orders.value = response.data.data.orders;
+    }
+  } catch (e) {
+    if (e.message.includes("Network")) {
+      toast.error("Please check your internet connection");
+    } else {
+      toast.error(e.message);
+    }
+  }
+};
 </script>
 
 <style lang="scss" scoped></style>

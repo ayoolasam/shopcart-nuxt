@@ -5,21 +5,19 @@
       <p class="font-bold">Shipping Information</p>
       <div class="bg-yellow flex gap-4 w-full">
         <div
-          @click="setDelivery('delivery')"
+          @click="setDelivery('Delivery')"
           class="h-12 border-[#f2f2f2] border-[1px] flex gap-2 cursor-pointer transition duration-500 text-center justify-center items-center text-sm text-gray-500 rounded-md flex-1"
           :class="{
-            'bg-primary text-white':
-              shippingDetails.deliveryMethod === 'delivery',
+            'bg-primary text-white': deliveryMethod === 'Delivery',
           }"
         >
           <i class="ri-truck-line"></i>
           <span>Delivery</span>
         </div>
         <div
-          @click="setDelivery('pick Up')"
+          @click="setDelivery('PickUp')"
           :class="{
-            'bg-primary text-white':
-              shippingDetails.deliveryMethod === 'pick Up',
+            'bg-primary text-white': deliveryMethod === 'PickUp',
           }"
           class="h-12 rounded-md flex-1 border-[#f2f2f2] flex gap-2 text-center cursor-pointer transition duration-500 justify-center items-center text-sm text-gray-500 border-[1px]"
         >
@@ -97,7 +95,7 @@
         <div class="flex flex-col gap-[10px]">
           <label class="block">Zip Code</label>
           <input
-            v-model="shippingDetails.zipCode"
+            v-model="shippingDetails.postalCode"
             class="h-12 border-[#f2f2f2] border-[1px] placeholder:text-xs px-4 text-xs rounded-md w-full"
             placeholder="Enter Zip Code"
           />
@@ -150,29 +148,39 @@
         </div>
       </div>
       <div
-        @click="saveShippingDetails"
+        @click="paymentMethod = true"
         class="bg-primary text-white text-md rounded-md flex items-center justify-center w-full h-12"
       >
         <span>Pay now</span>
       </div>
     </div>
   </div>
+  <PaymentMethodModal
+    v-if="paymentMethod"
+    @closeModal="paymentMethod = false"
+    @payment="choosePayment"
+  />
 </template>
 
 <script setup>
 import { useProductStore } from "../../stores/product";
+import PaymentMethodModal from "~/components/PaymentMethodModal.vue";
 import axios from "axios";
 import { useToast } from "maz-ui";
+import { useRouter } from "vue-router";
 definePageMeta({
   layout: "main",
 });
 const productStore = useProductStore();
+const { $apiClient } = useNuxtApp();
 
-// const deliveryMethod = ref(null);
+const deliveryMethod = ref(null);
 const countries = ref([]);
 const loading = ref(false);
+const router = useRouter();
 const toast = useToast();
 const dropDown = ref(false);
+const paymentMethod = ref("");
 
 const errorMessage = ref("");
 
@@ -181,14 +189,14 @@ const shippingDetails = ref({
   address: "",
   phoneNumber: "",
   fullName: "",
-  deliveryMethod: "",
+
   city: "",
   state: "",
-  zipCode: "",
+  postalCode: "",
 });
 
 const setDelivery = (str) => {
-  shippingDetails.value.deliveryMethod = str;
+  deliveryMethod.value = str;
 };
 
 const listCountries = async () => {
@@ -226,6 +234,68 @@ const listCountries = async () => {
 
 const saveShippingDetails = () => {
   productStore.addShippingDetails(shippingDetails.value);
+};
+
+const choosePayment = (str) => {
+  paymentMethod.value = str;
+  Order();
+};
+
+const Order = async () => {
+  // const order = {
+  //   products: productStore.cart.map(
+  //     ({ _id, name, numOfProducts, totalPrice, images, price }) => ({
+  //       productId: _id,
+  //       name,
+  //       numOfProducts,
+  //       price,
+  //       totalPrice,
+  //       image: images[0].url,
+  //     })
+  //   ),
+  //   shippingAddress: shippingDetails.value,
+  //   totalAmount: productStore.totalAmount,
+  //   paymentMethod: paymentMethod.value,
+  //   shippingCost: productStore.shipping,
+  //   subTotal: productStore.subTotal,
+  //   deliveryMethod: deliveryMethod.value,
+  // };
+
+  // console.log(order);
+  try {
+    loading.value = true;
+    const response = await $apiClient.post(`/api/v1/order`, {
+      products: productStore.cart.map(
+        ({ _id, name, numOfProducts, totalPrice, images, price }) => ({
+          productId: _id,
+          name,
+          numOfProducts,
+          price,
+          total: totalPrice,
+          image: images[0].url,
+        })
+      ),
+      shippingAddress: shippingDetails.value,
+      totalAmount: productStore.totalAmount,
+      paymentMethod: paymentMethod.value,
+      shippingCost: productStore.shipping,
+      subtotal: productStore.subTotal,
+      deliveryMethod: deliveryMethod.value,
+    });
+    if (response) {
+      loading.value = false;
+      paymentMethod.value = false;
+      productStore.clearCart();
+      router.push("/user/orders");
+      toast.success("Order Received successfully");
+    }
+  } catch (e) {
+    if (e.message.includes("Network")) {
+      toast.error("Please check your internet connection");
+    } else {
+      toast.error(e.message);
+    }
+  }
 };
 
 const searchCountries = () => {

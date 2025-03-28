@@ -52,29 +52,26 @@ const closeModal = () => {
 };
 
 const logOut = async () => {
-  // try {
-  //   loading.value = true;
-  //   const response = await $apiClient.post(
-  //     `/api/v1/products/review/${route.params.id}`,
-  //     {
-  //       comment: review.value,
-  //       rating: rating.value,
-  //     }
-  //   );
-  //   if (response) {
-  //     toast.success("Review Sent Successfully");
-  //     closeModal();
-  //   }
-  // } catch (e) {
-  //   if (e.message.includes("Network")) {
-  //     toast.error("Please check your internet connection");
-  //   } else {
-  //     toast.error(e.message);
-  //   }
-  // }
-  userStore.resetStore();
-  closeModal();
-  router.push("/Login");
+  try {
+    loading.value = true;
+    const response = await $apiClient.get(`/api/v1/logout`, {
+      comment: review.value,
+      rating: rating.value,
+    });
+    if (response) {
+      userStore.resetStore();
+      loading.value = false;
+      closeModal();
+      router.push("/Login");
+      toast.success("Logged out successfully");
+    }
+  } catch (e) {
+    if (e.message.includes("Network")) {
+      toast.error("Please check your internet connection");
+    } else {
+      toast.error(e.message);
+    }
+  }
 };
 </script>
 

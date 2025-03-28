@@ -24,7 +24,7 @@
           </div>
 
           <div class="flex flex-col justify-between text-xs text-gray-600">
-            <div class="flex gap-2">
+            <div class="flex flex-col xl:flex-row md:flex-row sm:flex-row xl:gap-2">
               <span class="font-bold text-xl text-primary"
                 >{{ userStore.userData.FirstName }}
                 {{ userStore.userData.LastName }}</span
