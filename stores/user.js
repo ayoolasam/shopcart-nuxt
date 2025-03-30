@@ -1,4 +1,5 @@
 import axios from "axios";
+import { useToast } from "maz-ui";
 
 export const useUserStore = defineStore("user", {
   state: () => ({
@@ -28,6 +29,7 @@ export const useUserStore = defineStore("user", {
 
     async fetchUserDetails() {
       const { $apiClient } = useNuxtApp();
+      const toast = useToast();
       try {
         const response = await $apiClient.get("/api/v1/user", {
           withCredentials: true,
@@ -45,8 +47,6 @@ export const useUserStore = defineStore("user", {
         }
       }
     },
-
-  
 
     updateEmail(val) {
       this.email = val;
