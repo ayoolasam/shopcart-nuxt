@@ -53,8 +53,11 @@ const update = async () => {
     const response = await $apiClient.put("/api/v1/user/update", payload);
     if (response) {
       loading.value = false;
+
       userStore.fetchUserDetails();
       toast.success("User Details Updated Successfully");
+      firstName.value = "";
+      lastName.value = "";
       emit("updated");
     }
   } catch (e) {
