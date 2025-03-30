@@ -7,14 +7,19 @@
         <p
           class="text-4xl w-full font-bold text-center md:text-left xl:text-left text-primary md:max-w-[500px] xl:max-w-[500px]"
         >
-          Grab Up to 50% On Selected Items
+          Grab Up to 20% On Selected Items
         </p>
         <div class="justify-center md:justify-start flex xl:justify-start">
-          <button
-            class="px-8 py-4 font-semibold text-white bg-primary rounded-full"
+        
+            <button
+            @click="emit('shoe')"
+            class="px-8 py-4 font-semibold active:outline-none text-white bg-primary rounded-full"
+
           >
             Buy Now
           </button>
+       
+         
         </div>
       </div>
       <div class="flex-1 bg-red-300">
@@ -29,6 +34,10 @@
 
 <script setup>
 import heroimage from "../assets/images/heros.jpg";
+
+const emit = defineEmits("shoe")
+
+
 </script>
 
 <style lang="scss" scoped></style>

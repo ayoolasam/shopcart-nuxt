@@ -47,10 +47,10 @@ const nav = [
     name: " Profile",
     link: "/user/profile",
   },
-  {
-    name: "Cart",
-    link: "/cart",
-  },
+  // {
+  //   name: "Cart",
+  //   link: "/cart",
+  // },
   {
     name: "Orders",
     link: "/user/orders",

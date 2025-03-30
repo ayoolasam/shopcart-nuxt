@@ -1,5 +1,5 @@
 <template>
-  <div class="h-screen text-xs text-gray-600 py-8 px-8">
+  <div class="text-xs text-gray-600 py-8 px-8">
     <div class="flex gap-4 flex-col xl:flex-row md:flex-row sm:flex-row">
       <div class="flex flex-col gap-4 my-8">
         <div class="flex gap-4">
@@ -24,7 +24,9 @@
           </div>
 
           <div class="flex flex-col justify-between text-xs text-gray-600">
-            <div class="flex flex-col xl:flex-row md:flex-row sm:flex-row xl:gap-2">
+            <div
+              class="flex flex-col xl:flex-row md:flex-row sm:flex-row xl:gap-2"
+            >
               <span class="font-bold text-xl text-primary"
                 >{{ userStore.userData.FirstName }}
                 {{ userStore.userData.LastName }}</span
@@ -32,8 +34,8 @@
               <span
                 class="text-green-500"
                 :class="{
-                  'text-green-400': status === true,
-                  'text-red-500': status === false,
+                  'text-green-400': userStore.userData.active === 'Active',
+                  'text-red-500': userStore.userData.active === 'InActive',
                 }"
                 >{{ userStore.userData.active ? "Active" : "InActive" }}</span
               >
@@ -119,6 +121,10 @@ watchEffect(() => {
   } else {
     currentTab.value = "uploadAvatar";
   }
+});
+
+onMounted(() => {
+  currentTab.value = "updateUser";
 });
 </script>
 

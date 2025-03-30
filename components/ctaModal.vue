@@ -13,10 +13,10 @@
         </div>
       </div>
       <div class="mt-4 flex flex-col gap-4 text-center">
-        <p class="font-bold text-xl text-red-500">{{ sub }}</p>
+        <p class="font-bold text-xl text-primary">{{ sub }}</p>
       </div>
       <div class="mt-4 flex flex-col gap-4 text-center">
-        <p class="text-xs text-red-500">{{ miniSub }}</p>
+        <p class="text-xs text-primary">{{ miniSub }}</p>
       </div>
       <button
         @click="logOut"

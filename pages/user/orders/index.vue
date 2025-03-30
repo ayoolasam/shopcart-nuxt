@@ -1,7 +1,8 @@
 <template>
   <div class="overflow-y-auto p-8">
     <p class="font-bold text-primary">Order History</p>
-    <div class="overflow-x-auto w-full">
+    <TableLoader v-if="loading" />
+    <div v-else class="overflow-x-auto w-full">
       <table class="w-full mt-8">
         <thead>
           <tr>
@@ -32,7 +33,9 @@
             >
               {{ order.orderStatus }}
             </td>
-            <td class="text-[rgba(26,26,26,0.7)] font-semibold">{{ formatToNaira(order.totalAmount) }}</td>
+            <td class="text-[rgba(26,26,26,0.7)] font-semibold">
+              {{ formatToNaira(order.totalAmount) }}
+            </td>
             <td
               :class="{
                 'text-green-500':
@@ -82,6 +85,7 @@
 
 <script setup>
 import { useToast } from "maz-ui";
+import TableLoader from "~/components/TableLoader.vue";
 definePageMeta({
   layout: "main",
 });
@@ -89,7 +93,7 @@ const { $apiClient } = useNuxtApp();
 const actions = ref(false);
 const ind = ref(null);
 const toast = useToast();
-const loading = ref(false);
+const loading = ref(true);
 
 const orders = ref([]);
 // const orders = [
@@ -142,7 +146,7 @@ const toggleActions = (id) => {
 
 function formatToNaira(amount) {
   if (amount == null || isNaN(amount)) {
-    return "₦0.00"; 
+    return "₦0.00";
   }
   return amount.toLocaleString("en-NG", {
     style: "currency",
@@ -167,6 +171,7 @@ const currentUserOrders = async () => {
     const response = await $apiClient.get(`/api/v1/user/orders`);
     if (response) {
       orders.value = response.data.data.orders;
+      loading.value = false;
     }
   } catch (e) {
     if (e.message.includes("Network")) {

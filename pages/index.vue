@@ -1,10 +1,10 @@
 <template>
   <div class="w-full">
-    <Hero />
+    <Hero id="hero" @shoe="scrollToFooter" />
 
-    <Shoes />
+    <Shoes id="shoes" />
 
-    <Hoodies />
+    <Hoodies id="hoodies" />
   </div>
 </template>
 
@@ -18,6 +18,10 @@ import Footer from "~/components/Footer.vue";
 definePageMeta({
   layout: "main",
 });
+
+const scrollToFooter = () => {
+  document.getElementById("shoes")?.scrollIntoView({ behavior: "smooth" });
+};
 </script>
 
 <style lang="scss" scoped></style>

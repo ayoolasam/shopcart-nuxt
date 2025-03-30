@@ -46,7 +46,7 @@
       </span> -->
       <NuxtLink :to="'/cart'">
         <p class="flex gap-[7px] text-sm items-center relative">
-          <i class="ri-shopping-cart-line text-xl"></i>
+          <i class="ri-shopping-cart-line text-xl font-bold text-primary"></i>
           <span
             v-if="productStore.cart.length > 0"
             class="bg-primary h-[20px] w-[20px] rounded-full text-xs bottom-4 left-[10px] text-white flex items-center justify-center absolute"
@@ -87,11 +87,11 @@
       >
         <div
           v-if="accountTab"
-          class="shadow-xl w-[160px] account-menu absolute left-8 rounded-xl top-8 bg-white"
+          class="shadow-xl w-[160px] account-menu absolute left-8 rounded-xl top-10 bg-white"
         >
-          <ul class="w-full h-full">
+          <ul class="w-full h-full rounded-xl">
             <li
-              class="px-[20px] text-sm py-[5px] w-full h-full text-primary hover:bg-green-300 transition-all duration-500 hover:text-white flex gap-4 text-center"
+              class="px-[20px] text-sm py-[5px] w-full first:rounded-t-xl last:rounded-b-xl h-full text-primary hover:bg-green-300 transition-all duration-500 hover:text-white flex gap-4 text-center"
               v-for="(tab, index) in account"
               :key="index"
             >
@@ -102,7 +102,7 @@
             </li>
             <li
               @click="showCtaModal = true"
-              class="px-[20px] text-sm py-[5px] w-full h-full text-primary hover:bg-green-300 transition-all duration-500 hover:text-white flex gap-4 text-center"
+              class="px-[20px] hover:rounded-b-xl text-sm py-[5px] w-full h-full text-primary hover:bg-green-300 transition-all duration-500 hover:text-white flex gap-4 text-center"
             >
               <i class="ri-logout-box-r-line icon"></i>
               <span class="font-bold hover:text-white">Log Out</span>
@@ -113,7 +113,15 @@
           <span
             v-if="!userStore.userData.avatar"
             class="border-[1px] border-[#f2f2f2] h-[40px] text-xs flex items-center justify-center w-[40px] rounded-full"
-            >{{ userStore?.userData?.FirstName ? userStore.userData.FirstName[0] : '' }}{{ userStore?.userData?.LastName ? userStore.userData.LastName[0] : '' }}</span
+            >{{
+              userStore?.userData?.FirstName
+                ? userStore.userData.FirstName[0]
+                : ""
+            }}{{
+              userStore?.userData?.LastName
+                ? userStore.userData.LastName[0]
+                : ""
+            }}</span
           >
           <div v-else class="h-[40px] w-[40px] rounded-full">
             <img
@@ -139,11 +147,25 @@
         </div>
       </div>
     </div>
-    <div
-      @click="toggleSideBar"
-      class="text-3xl xl:hidden text-primary font-bold"
-    >
-      <i class="ri-menu-line"></i>
+    <div class="flex items-center xl:hidden gap-4 font-bold text-primary">
+      <NuxtLink :to="'/cart'">
+        <p class="flex gap-[7px] text-sm items-center relative">
+          <i class="ri-shopping-cart-line text-xl"></i>
+          <span
+            v-if="productStore.cart.length > 0"
+            class="bg-primary h-[20px] w-[20px] rounded-full text-xs bottom-4 left-[10px] text-white flex items-center justify-center absolute"
+          >
+            {{ productStore.cart.length }}
+          </span>
+        </p>
+      </NuxtLink>
+
+      <div
+        @click="toggleSideBar"
+        class="text-3xl xl:hidden text-primary font-bold"
+      >
+        <i class="ri-menu-line"></i>
+      </div>
     </div>
   </div>
   <ctaModal
@@ -176,7 +198,6 @@ const showCtaModal = ref(false);
 const productStore = useProductStore();
 const loading = ref(false);
 const products = ref([]);
-const userLoggedIn = ref(false);
 const toast = useToast();
 let searchTimeout = ref(null);
 
@@ -249,6 +270,7 @@ onMounted(() => {
       userTab.value = false;
     }
   });
+  userStore.fetchUserDetails();
 });
 
 const listProducts = async () => {
