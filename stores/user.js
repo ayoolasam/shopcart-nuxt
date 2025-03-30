@@ -1,6 +1,5 @@
 import axios from "axios";
 
-
 export const useUserStore = defineStore("user", {
   state: () => ({
     token: "",
@@ -29,7 +28,6 @@ export const useUserStore = defineStore("user", {
 
     async fetchUserDetails() {
       const { $apiClient } = useNuxtApp();
-
 
       const response = await $apiClient.get("/api/v1/user", {
         withCredentials: true,

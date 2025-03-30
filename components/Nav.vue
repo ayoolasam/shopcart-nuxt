@@ -270,7 +270,7 @@ onMounted(() => {
       userTab.value = false;
     }
   });
-  userStore.fetchUserDetails();
+  // userStore.fetchUserDetails();
 });
 
 const listProducts = async () => {
