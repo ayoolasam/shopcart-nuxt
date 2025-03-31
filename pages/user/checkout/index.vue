@@ -125,18 +125,18 @@
               <p class="text-gray-400">{{ product.numOfProducts }}x</p>
             </div>
 
-            <p>${{ product.price }}</p>
+            <p>{{ formatToNaira(product.price) }}</p>
           </div>
         </div>
       </div>
       <div class="text-xs flex flex-col gap-2.5">
         <div class="flex justify-between">
           <span class="text-gray-500">subTotal</span>
-          <span class="font-bold">${{ productStore.subTotal }}</span>
+          <span class="font-bold">{{ formatToNaira(productStore.subTotal) }}</span>
         </div>
         <div class="flex justify-between">
           <span class="text-gray-500">shipping</span>
-          <span class="font-bold">{{ productStore.shipping }}</span>
+          <span class="font-bold">{{ formatToNaira(productStore.shipping) }}</span>
         </div>
         <div class="flex justify-between">
           <span class="text-gray-500">Discount</span>
@@ -144,7 +144,7 @@
         </div>
         <div class="flex justify-between">
           <span class="font-bold">Total</span>
-          <span class="font-bold">${{ productStore.totalAmount }}</span>
+          <span class="font-bold">{{ formatToNaira(productStore.totalAmount) }}</span>
         </div>
       </div>
       <div
@@ -194,6 +194,17 @@ const shippingDetails = ref({
   state: "",
   postalCode: "",
 });
+
+
+
+function formatToNaira(amount) {
+  return amount.toLocaleString("en-NG", {
+    style: "currency",
+    currency: "NGN",
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0, 
+  });
+}
 
 const setDelivery = (str) => {
   deliveryMethod.value = str;

@@ -35,7 +35,7 @@
               <span class="hover:underline">{{ shoe.name }}</span>
             </NuxtLink>
 
-            <span>${{ shoe.price }}</span>
+            <span>{{ formatToNaira(shoe.price) }}</span>
           </div>
           <p
             class="text-gray-700 text-[8px] hover:underline hover:font-bold hover:text-primary"
@@ -93,6 +93,16 @@ const addToCart = (product) => {
     toast.success(`${product.name} added to Cart`);
   }
 };
+
+
+function formatToNaira(amount) {
+  return amount.toLocaleString("en-NG", {
+    style: "currency",
+    currency: "NGN",
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0, 
+  });
+}
 
 onMounted(() => {
   listShoes();

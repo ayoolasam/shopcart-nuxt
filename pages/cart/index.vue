@@ -36,7 +36,7 @@
             <div>
               <p>{{ product.name }}</p>
               <div class="text-xs text-gray-300">
-                <span>${{ product.price }}</span> |
+                <span>{{ formatToNaira(product.price) }}</span> |
                 <span class="text-green-400">In Stock</span>
               </div>
             </div>
@@ -44,15 +44,20 @@
             <div
               class="h-[30px] flex justify-between items-center rounded-lg w-[80px] px-4 bg-[#f6f6f6]"
             >
-              <i
-                @click="productStore.addToCart(product)"
-                class="ri-add-line"
-              ></i>
+              <div class="w-full h-full flex items-center justify-center">
+                <i
+                  @click="productStore.addToExistingProduct(product)"
+                  class="ri-add-line"
+                ></i>
+              </div>
+
               <span class="text-xs">{{ product.numOfProducts }}</span>
-              <i
-                @click="productStore.subTractFromExistingProduct(product)"
-                class="ri-subtract-line"
-              ></i>
+              <div class="flex justify-center items-center w-full h-full">
+                <i
+                  @click="productStore.subTractFromExistingProduct(product)"
+                  class="ri-subtract-line"
+                ></i>
+              </div>
             </div>
           </div>
         </div>
@@ -60,7 +65,9 @@
         <div
           class="flex xl:flex-col cursor-pointer md:flex-col justify-between items-center xl:items-end"
         >
-          <p class="text-xl font-bold">${{ product.totalPrice }}</p>
+          <p class="text-xl font-bold">
+            {{ formatToNaira(product.totalPrice) }}
+          </p>
 
           <div
             @click="deleteFromCart(product)"
@@ -78,7 +85,7 @@
         <p class="font-semibold">Cart Summary</p>
         <div class="flex items-center justify-between">
           <span>SubTotal</span>
-          <span>${{ productStore.subTotal }}</span>
+          <span>{{ formatToNaira(productStore.subTotal) }}</span>
         </div>
         <p class="text-gray-400 text-xs">Delivery Fees Not Included Yet</p>
       </div>
@@ -86,7 +93,7 @@
         <div
           class="h-[50px] w-full shadow-md text-white flex items-center justify-center rounded-md bg-primary"
         >
-          Checkout ${{ productStore.subTotal }}
+          Checkout {{ formatToNaira(productStore.subTotal) }}
         </div>
       </NuxtLink>
     </div>
@@ -101,6 +108,14 @@ definePageMeta({
   layout: "main",
 });
 
+function formatToNaira(amount) {
+  return amount.toLocaleString("en-NG", {
+    style: "currency",
+    currency: "NGN",
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  });
+}
 const deleteFromCart = (product) => {
   productStore.deleteFromCart(product);
 };

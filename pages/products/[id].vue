@@ -93,23 +93,29 @@
         <div
           class="px-4 py-4 border-b-[1px] border-[#f6f6f6] flex flex-col gap-2"
         >
-          <h2 class="font-bold text-xl">${{ product.price }}</h2>
+          <h2 class="font-bold text-xl">{{ formatToNaira(product.price) }}</h2>
         </div>
         <div
           class="px-4 py-8 flex gap-6 items-center border-b-[1px] border-[#f6f6f6]"
         >
           <div
-            class="xl:w-[200px] cursor-pointer xl:h-[70px] w-[120px] h-[50px] rounded-full xl:px-8 px-4 text-lg flex items-center text-primary justify-between bg-[#f6f6f6]"
+            class="xl:w-[200px] cursor-pointer xl:h-[70px] w-[120px] h-[40px] rounded-full   text-lg flex items-center text-primary justify-between bg-[#f6f6f6]"
           >
+          <div class=" hover:bg-[#f1f1f1f1] transition-all duration-500 w-full h-full flex rounded-full justify-center items-center">
             <i
               @click="productStore.addToExistingProduct(product)"
               class="ri-add-line"
             ></i>
-            <span>4</span>
-            <i
+          </div>
+           
+            <span class="text-xs">{{product.quantity}}</span>
+            <div class=" w-full h-full  hover:bg-[#f1f1f1f1] transition-all duration-500  flex justify-center text-center rounded-full items-center" >
+              <i
               @click="productStore.subTractFromExistingProduct(product)"
               class="ri-subtract-line"
             ></i>
+            </div>
+        
           </div>
           <div class="text-xs flex xl:justify-start justify-center">
             <div>
@@ -126,11 +132,14 @@
           >
             Add To Cart
           </div>
-          <div
+          <NuxtLink to="/">
+            <div
             class="xl:px-16 px-8 h-[50px] whitespace-nowrap xl:text-xs text-[10px] text-primary hover:bg-primary hover:text-white border-primary border-[1px] rounded-full flex items-center justify-center bg-[#f6f6f6]"
           >
             Buy Now
           </div>
+          </NuxtLink>
+         
         </div>
         <div class="w-full mt-4 flex xl:justify-start  justify-center">
           <p
@@ -166,6 +175,19 @@ const image = ref();
 const toast = useToast();
 const productStore = useProductStore();
 const { $apiClient } = useNuxtApp();
+
+
+
+
+
+function formatToNaira(amount) {
+  return amount.toLocaleString("en-NG", {
+    style: "currency",
+    currency: "NGN",
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0, 
+  });
+}
 
 const fetchProduct = async () => {
   try {

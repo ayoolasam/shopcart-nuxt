@@ -8,7 +8,7 @@ export const useProductStore = defineStore("product", {
     discountPercentage: 20,
     shippingInformation: {},
 
-    shipping: 500,
+    shipping: 20000,
   }),
 
   getters: {},
@@ -16,7 +16,7 @@ export const useProductStore = defineStore("product", {
   actions: {
     addToCart(product) {
       const isExisting = this.cart.find((item) => item._id === product._id);
-    
+
       if (isExisting) return false;
       else {
         //create a new product with quantity of the product you want to buy
@@ -51,7 +51,7 @@ export const useProductStore = defineStore("product", {
       const existingProduct = this.cart.find(
         (item) => item._id === product._id
       );
-      if (existingProduct) {
+      if (existingProduct && existingProduct.numOfProducts > 0) {
         existingProduct.numOfProducts += 1;
         existingProduct.totalPrice =
           existingProduct.totalPrice + existingProduct.price;
@@ -64,11 +64,10 @@ export const useProductStore = defineStore("product", {
       const existingProduct = this.cart.find(
         (item) => item._id === product._id
       );
-      if (existingProduct) {
-        if (existingProduct.numOfProducts > 1)
-          existingProduct.numOfProducts -= 1;
-        existingProduct.totalPrice =
-          existingProduct.totalPrice + existingProduct.price;
+
+      if (existingProduct && existingProduct.numOfProducts > 1) {
+        existingProduct.numOfProducts -= 1;
+        existingProduct.totalPrice -= existingProduct.price;
         this.updateCartTotals();
         this.calculateTotalAmount();
       }
