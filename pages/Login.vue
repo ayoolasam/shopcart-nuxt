@@ -33,7 +33,7 @@
         class="h-12 bg-primary w-full flex items-center justify-center text-white rounded-md"
       >
         <span v-if="!loading">Sign In</span>
-        <MazSpinner v-else size="2em" color="white"/>
+        <MazSpinner v-else size="2em" color="white" />
       </button>
       <div class="text-xs text-center text-primary">
         <NuxtLink to="/Register">
@@ -70,6 +70,7 @@ const login = async () => {
       email: email.value,
     });
     if (response) {
+      loading.value = false;
       userStore.updateUserData(response.data.data.userDetails);
       userStore.updateToken(response.data.data.token);
 
@@ -77,13 +78,14 @@ const login = async () => {
       userStore.updateRole(response.data.data.userDetails.role);
       toast.success("Login successful");
 
-      loading.value = false;
       router.push("/");
     }
   } catch (e) {
     if (e.message.includes("Network")) {
       toast.error("Please check your internet connection");
+      loading.value = false;
     } else {
+      loading.value = false;
       toast.error(e.response.data.message);
     }
   }
