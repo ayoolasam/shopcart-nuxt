@@ -7,17 +7,19 @@ export default defineNuxtRouteMiddleware((to, from) => {
   //   student: "/student/dashboard",
   //   staff: "/tutor/dashboard",
   // };
+  const publicRoutes = ["/", "/Login", "/Register", "/forgotPassword", ,];
 
+  if (to.meta.auth === false) {
+    return;
+  }
 
-
-  
+  if (publicRoutes.includes(to.path)) {
+    return;
+  }
 
   const redirectToLogin = (to) => {
     if (to.path !== "/Login" && to.meta.layout) {
-      const url =
-        to.fullPath === "/"
-          ? "/Login"
-          : `/Login?fallBackUrl=${encodeURIComponent(to.fullPath)}`;
+      const url = to.fullPath === "/" ? "/Login" : `/Login`;
 
       userStore.$reset();
       return navigateTo(url);
