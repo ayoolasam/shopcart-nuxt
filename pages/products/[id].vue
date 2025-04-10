@@ -12,31 +12,37 @@
       </div>
     </NuxtLink>
 
-<div v-if="loading" class="w-full xl:h-[600px] flex gap-4 flex-col xl:flex-row mt-8 ">
-<div class="flex-1 flex flex-col gap-4  rounded-md">
-  <div class="skeleton w-full xl:h-[80%] h-[400px]"></div>
-  <div class="grid grid-cols-2 xl:grid-cols-4 w-full place-items-center justify-between gap-4">
-    <div v-for="(n,ind) in 4" :index="ind" class="rounded-lg w-[130px] h-[100px] skeleton"></div>
-  </div>
-  
-</div>
-<div class="flex-1 py-8 px-4 rounded-md flex flex-col gap-12">
-  <div class="flex-col gap-4 flex">
-    <div class="w-[60%] h-[50px] rounded-md skeleton"></div>
-    <div class="w-[70%] h-[20px] rounded-md skeleton"></div>
-    <div class="w-[40%] h-[50px] rounded-md skeleton"></div>
-  </div>
-  <div class="flex-col gap-4 flex">
-    <div class="w-[60%] h-[50px] rounded-md skeleton"></div>
-
-  </div>
-  <div class="flex-col gap-4 flex">
-    <div class="w-full h-[50px] rounded-md skeleton"></div>
-    <div class="w-[70%] h-[20px] rounded-md skeleton"></div>
-
-  </div>
-</div>
-</div>
+    <div
+      v-if="loading"
+      class="w-full xl:h-[600px] flex gap-4 flex-col xl:flex-row mt-8"
+    >
+      <div class="flex-1 flex flex-col gap-4 rounded-md">
+        <div class="skeleton w-full xl:h-[80%] h-[400px]"></div>
+        <div
+          class="grid grid-cols-2 xl:grid-cols-4 w-full place-items-center justify-between gap-4"
+        >
+          <div
+            v-for="(n, ind) in 4"
+            :key="ind"
+            class="rounded-lg w-[130px] h-[100px] skeleton"
+          ></div>
+        </div>
+      </div>
+      <div class="flex-1 py-8 px-4 rounded-md flex flex-col gap-12">
+        <div class="flex-col gap-4 flex">
+          <div class="w-[60%] h-[50px] rounded-md skeleton"></div>
+          <div class="w-[70%] h-[20px] rounded-md skeleton"></div>
+          <div class="w-[40%] h-[50px] rounded-md skeleton"></div>
+        </div>
+        <div class="flex-col gap-4 flex">
+          <div class="w-[60%] h-[50px] rounded-md skeleton"></div>
+        </div>
+        <div class="flex-col gap-4 flex">
+          <div class="w-full h-[50px] rounded-md skeleton"></div>
+          <div class="w-[70%] h-[20px] rounded-md skeleton"></div>
+        </div>
+      </div>
+    </div>
 
     <div
       v-else
@@ -99,33 +105,37 @@
           class="px-4 py-8 flex gap-6 items-center border-b-[1px] border-[#f6f6f6]"
         >
           <div
-            class="xl:w-[200px] cursor-pointer xl:h-[70px] w-[120px] h-[40px] rounded-full   text-lg flex items-center text-primary justify-between bg-[#f6f6f6]"
+            class="xl:w-[200px] cursor-pointer xl:h-[70px] w-[120px] h-[40px] rounded-full text-lg flex items-center text-primary justify-between bg-[#f6f6f6]"
           >
-          <div class=" hover:bg-[#f1f1f1f1] transition-all duration-500 w-full h-full flex rounded-full justify-center items-center">
-            <i
-              @click="productStore.addToExistingProduct(product)"
-              class="ri-add-line"
-            ></i>
-          </div>
-           
-            <span class="text-xs">{{product.quantity}}</span>
-            <div class=" w-full h-full  hover:bg-[#f1f1f1f1] transition-all duration-500  flex justify-center text-center rounded-full items-center" >
+            <div
+              class="hover:bg-[#f1f1f1f1] transition-all duration-500 w-full h-full flex rounded-full justify-center items-center"
+            >
               <i
-              @click="productStore.subTractFromExistingProduct(product)"
-              class="ri-subtract-line"
-            ></i>
+                @click="productStore.addToExistingProduct(product)"
+                class="ri-add-line"
+              ></i>
             </div>
-        
+
+            <span class="text-xs">{{ product.quantity }}</span>
+            <div
+              class="w-full h-full hover:bg-[#f1f1f1f1] transition-all duration-500 flex justify-center text-center rounded-full items-center"
+            >
+              <i
+                @click="productStore.subTractFromExistingProduct(product)"
+                class="ri-subtract-line"
+              ></i>
+            </div>
           </div>
           <div class="text-xs flex xl:justify-start justify-center">
             <div>
               <p>Only {{ product.quantity }} Items left</p>
               <p>Dont Miss Out</p>
             </div>
-            
           </div>
         </div>
-        <div class="flex gap-4 p-4 text-xs xl:justify-start justify-center w-full">
+        <div
+          class="flex gap-4 p-4 text-xs xl:justify-start justify-center w-full"
+        >
           <div
             @click="addToCart(product)"
             class="xl:px-16 hover:cursor-pointer px-8 whitespace-nowrap xl:text-xs text-[10px] bg-primary hover:bg-white hover:text-primary hover:border-primary hover:border-[1px] text-white h-[50px] rounded-full flex items-center justify-center"
@@ -134,17 +144,16 @@
           </div>
           <NuxtLink to="/">
             <div
-            class="xl:px-16 px-8 h-[50px] whitespace-nowrap xl:text-xs text-[10px] text-primary hover:bg-primary hover:text-white border-primary border-[1px] rounded-full flex items-center justify-center bg-[#f6f6f6]"
-          >
-            Buy Now
-          </div>
+              class="xl:px-16 px-8 h-[50px] whitespace-nowrap xl:text-xs text-[10px] text-primary hover:bg-primary hover:text-white border-primary border-[1px] rounded-full flex items-center justify-center bg-[#f6f6f6]"
+            >
+              Buy Now
+            </div>
           </NuxtLink>
-         
         </div>
-        <div class="w-full mt-4 flex xl:justify-start  justify-center">
+        <div class="w-full mt-4 flex xl:justify-start justify-center">
           <p
             @click="showModal = true"
-            class="text-primary text-md  w-[300px] h-12 flex items-center justify-center xl:text-md text-xs  rounded-md text-center cursor-pointer hover:bg-primary hover:text-white py-4 bg-[#f2f2f2]"
+            class="text-primary text-md w-[300px] h-12 flex items-center justify-center xl:text-md text-xs rounded-md text-center cursor-pointer hover:bg-primary hover:text-white py-4 bg-[#f2f2f2]"
           >
             Review Product
           </p>
@@ -176,16 +185,12 @@ const toast = useToast();
 const productStore = useProductStore();
 const { $apiClient } = useNuxtApp();
 
-
-
-
-
 function formatToNaira(amount) {
   return amount.toLocaleString("en-NG", {
     style: "currency",
     currency: "NGN",
     minimumFractionDigits: 0,
-    maximumFractionDigits: 0, 
+    maximumFractionDigits: 0,
   });
 }
 
@@ -226,15 +231,6 @@ const setImage = (img) => {
 onMounted(() => {
   fetchProduct();
 });
-const hoodie = {
-  name: "Premium Hoodie",
-  price: 75,
-  description:
-    "High-quality fabric with a luxurious feel and added durability.",
-  image: shoe,
-  ratingValue: 5.0,
-  ratings: 225,
-};
 </script>
 
 <style lang="scss" scoped></style>

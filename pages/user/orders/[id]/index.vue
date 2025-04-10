@@ -120,7 +120,7 @@
               <span class="font-bold">Payment Method</span>
               <span>{{ order?.paymentMethod }}</span>
             </div>
-            <div class="flex justify-between text-xs">
+            <div  v-if="order.paymentMethod === 'CARD'"  class="flex justify-between text-xs">
               <span class="font-bold">Payment Reference</span>
               <span>{{ order?.reference }}</span>
             </div>

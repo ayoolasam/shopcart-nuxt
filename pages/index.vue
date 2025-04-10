@@ -4,7 +4,7 @@
 
     <Shoes id="shoes" />
 
-    <Hoodies id="hoodies" />
+    <!-- <Hoodies id="hoodies" /> -->
   </div>
 </template>
 

@@ -12,20 +12,27 @@
       </ul>
     </nav>
     <div
-      class="bg-[#f2f2f2] px-4 relative hidden xl:flex h-[32px] rounded-lg items-center w-[300px]"
+      class="bg-[#f2f2f2] px-4 relative hidden xl:flex md:flex sm:flex h-[32px] rounded-lg items-center w-[300px]"
     >
       <input
         class="h-full text-xs w-full focus:outline-none rounded-md py-[5px] placeholder:text-xs"
         placeholder="Search Product"
         @input="activateToggle"
+        v-model="search"
       />
       <i class="ri-search-line"></i>
       <div
         v-if="showDropdown"
-        class="bg-white shadow-lg h-[200px] search-drop overflow-y-auto top-8.5 w-[400px] rounded-md absolute"
+        class="bg-white shadow-lg  search-drop overflow-y-auto top-8.5 w-[400px] rounded-md absolute"
       >
         <p v-if="loading" class="text-xs p-4 text-gray-600">
           Loading..........
+        </p>
+        <p
+          v-if="!loading && products.length === 0"
+          class="text-xs p-4 text-gray-600"
+        >
+          No Products Found
         </p>
         <p
           v-else
@@ -40,10 +47,7 @@
       </div>
     </div>
     <div class="gap-4 hidden xl:flex cursor-pointer items-center">
-      <!-- <span class="flex relative gap-[7px] text-sm items-center">
-        <i class="ri-user-line text-xl"></i> Account
-        <div class="h-[100px] w-[100px]  shadow-xl rounded-md bg-white top-[20px] absolute"></div>
-      </span> -->
+    
       <NuxtLink :to="'/cart'">
         <p class="flex gap-[7px] text-sm items-center relative">
           <i class="ri-shopping-cart-line text-xl font-bold text-primary"></i>
@@ -178,20 +182,21 @@
 </template>
 
 <script setup>
-import SideBar from "./SideBar.vue";
-const toggle = ref(false);
 const emit = defineEmits(["show"]);
 import { useProductStore } from "../stores/product";
 import { NuxtLink } from "#components";
 const { $apiClient } = useNuxtApp();
 import { useUserStore } from "#imports";
-import axios from "axios";
+
 import { useToast } from "maz-ui";
 import ctaModal from "./ctaModal.vue";
+import { useRouter } from "vue-router";
 
 const toggleSideBar = () => {
   emit("show");
 };
+
+const router = useRouter();
 const userStore = useUserStore();
 const showDropdown = ref(false);
 const showCtaModal = ref(false);
@@ -200,6 +205,7 @@ const loading = ref(false);
 const products = ref([]);
 const toast = useToast();
 let searchTimeout = ref(null);
+const search = ref("");
 
 const nav = [
   {
@@ -254,6 +260,31 @@ const showUserTab = () => {
   userTab.value = !userTab.value;
 };
 
+const listProducts = async () => {
+  try {
+    if (search.value === "") {
+      products.value = [];
+      showDropdown.value = false;
+      return;
+    }
+    loading.value = true;
+    const response = await $apiClient.get(
+      `/api/v1/products?keyword=${search.value}`
+    );
+    if (response) {
+      products.value = response.data.data.products;
+      router.push({ query: { keyword: search.value } });
+      loading.value = false;
+    }
+  } catch (e) {
+    if (e.message.includes("Network")) {
+      toast.error("Please check your internet connection");
+    } else {
+      toast.error(e.message);
+    }
+  }
+};
+
 onMounted(() => {
   document.addEventListener("click", (e) => {
     if (!e.target.closest("account-menu") && accountTab.value) {
@@ -270,25 +301,7 @@ onMounted(() => {
       userTab.value = false;
     }
   });
-  // userStore.fetchUserDetails();
 });
-
-const listProducts = async () => {
-  try {
-    loading.value = true;
-    const response = await $apiClient.get("/api/v1/products");
-    if (response) {
-      products.value = response.data.data.products;
-      loading.value = false;
-    }
-  } catch (e) {
-    if (e.message.includes("Network")) {
-      toast.error("Please check your internet connection");
-    } else {
-      toast.error(e.message);
-    }
-  }
-};
 </script>
 
 <style lang="scss" scoped></style>

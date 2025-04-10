@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full flex flex-col gap-4 xl:h-[500px] h-full">
+  <div class="xl:w-[500px] w-full md:w-[500px] flex flex-col gap-4 xl:h-[500px] h-full">
     <div class="flex flex-col gap-2">
       <label>First Name</label>
       <input
@@ -19,7 +19,7 @@
 
     <button
       @click="update"
-      class="w-full h-12 bg-primary text-white flex items-center rounded-xl justify-center"
+      class="w-full  h-12 bg-primary text-white flex items-center rounded-xl justify-center"
     >
       <span v-if="!loading">Update</span>
       <MazSpinner v-else size="2em" color="white" />

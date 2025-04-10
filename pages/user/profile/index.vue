@@ -57,11 +57,7 @@
           >
             <i class="ri-calendar-line"></i>{{ userStore.userData.email }}</span
           >
-          <span
-            class="border-[1px] items-center rounded-md flex xl:w-[300px] xl:w-full4 gap-4 border-[#f2f2f2] px-8 py-[5px]"
-          >
-            <i class="ri-phone-line"></i>09078329726</span
-          >
+         
         </div>
       </div>
       <div class="flex flex-col gap-8 items-center">
@@ -104,13 +100,14 @@
 
 <script setup>
 import { useUserStore } from "#imports";
-import { useRoute } from "vue-router";
+import { useRoute,useRouter } from "vue-router";
 definePageMeta({
   layout: "main",
 });
 const currentTab = ref("updateUser");
-const activeTab = ref(false);
+
 const route = useRoute();
+const router = useRouter();
 const userStore = useUserStore();
 
 watchEffect(() => {
@@ -124,7 +121,8 @@ watchEffect(() => {
 });
 
 onMounted(() => {
-  currentTab.value = "updateUser";
+ 
+  router.replace('/user/profile/updateUserDetails')
 });
 </script>
 
