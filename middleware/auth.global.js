@@ -7,7 +7,7 @@ export default defineNuxtRouteMiddleware((to, from) => {
   //   student: "/student/dashboard",
   //   staff: "/tutor/dashboard",
   // };
-  const publicRoutes = ["/", "/Login", "/Register", "/forgotPassword",];
+  const publicRoutes = ["/", "/Login", "/Register", "/forgotPassword","cart"];
 
   if (to.meta.auth === false) {
     return;
