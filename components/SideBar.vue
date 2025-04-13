@@ -32,7 +32,8 @@
           </NuxtLink>
         </li>
       </ul>
-      <ul>
+      <ul v-if="userStore.userData && Object.keys(userStore.userData).length > 0"
+      >
         <li
           @click="toggleCtaModal"
           class="w-full p-4 text-center text-xl font-bold text-white"
