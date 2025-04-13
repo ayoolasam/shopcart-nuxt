@@ -27,29 +27,15 @@
           :rating-value="0"
           :rating-size="20"
         ></NuxtRating>
-        <!-- <div class="flex items-center">
-      <p>Rating :</p>
-      <NuxtRating
-        class="px-3"
-        border-color="#db8403"
-        active-color="#ffa41c"
-        inactive-color="#fff"
-        :rating-step="0.1"
-        :rounded-corners="true"
-        :border-width="5"
-        :rating-size="10"
-        :rating-value="3.7"
-        @rating-selected="logRating"
-        @rating-hovered="event => (rating = event)" />
-      <p>{{ rating }}</p>
-    </div> -->
+      
       </div>
       <button
         @click="reviewProduct"
         :disabled="!review && !rating"
-        class="mt-4 text-white h-12 rounded-xl w-full bg-primary"
+        class="mt-4 text-white flex justify-center items-center h-12 rounded-xl w-full bg-primary"
       >
-        Send Review
+        <span v-if="!loading">Send A Review</span>
+        <MazSpinner v-else size="2em" color="white" />
       </button>
     </div>
   </div>
@@ -84,6 +70,7 @@ const reviewProduct = async () => {
       }
     );
     if (response) {
+      loading.value = false;
       toast.success("Review Sent Successfully");
       closeModal();
     }
@@ -91,7 +78,8 @@ const reviewProduct = async () => {
     if (e.message.includes("Network")) {
       toast.error("Please check your internet connection");
     } else {
-      toast.error(e.message);
+      toast.error(e.response.data.message);
+      emit("closeModal");
     }
   }
 };
@@ -107,7 +95,7 @@ const reviewProduct = async () => {
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 1000;
   display: flex;
-  padding:20px;
+  padding: 20px;
   justify-content: center;
   align-items: center;
 }

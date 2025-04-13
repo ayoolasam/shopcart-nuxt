@@ -46,7 +46,7 @@
 
     <div
       v-else
-      class="w-full xl:h-[600px] flex gap-4 flex-col xl:flex-row mt-8"
+      class="w-full  flex gap-4 flex-col xl:flex-row mt-8"
     >
       <div class="flex-1 flex flex-col gap-4 h-full">
         <div class="h-[80%] relative">
@@ -75,7 +75,7 @@
               @click="setImage(image.url)"
               :src="image.url"
               alt=""
-              class="w-full h-full"
+              class="w-full h-full cursor-pointer"
             />
           </div>
         </div>
@@ -157,6 +157,31 @@
           >
             Review Product
           </p>
+        </div>
+        <p v-if="product.numReviews > 0" class="mt-8 text-primary">Reviews</p>
+        <div
+          v-if="product.reviews"
+          class="mt-4 flex  -space-x-4 justify-center xl:justify-start"
+        >
+          <div v-for="(user, index) in product.reviews" :key="index">
+            <img
+              v-if="user.user.avatar"
+              class="rounded-full w-12 h-12 border-2 border-white"
+              :src="user.user.avatar"
+              alt="user-image"
+            />
+            <div
+              v-else
+              class="rounded-full bg-primary text-white text-center flex items-center justify-center w-12 h-12 border-[1px] border-[#f5f5f5]"
+            >
+              <span class=" text-xs font-bold"
+                >  {{
+      (user?.user.FirstName ? user.user.FirstName[0] : '') +
+      (user?.user.LastName ? user.user.LastName[0] : '')
+    }}</span
+              >
+            </div>
+          </div>
         </div>
       </div>
     </div>

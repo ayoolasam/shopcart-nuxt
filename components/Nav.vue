@@ -274,6 +274,7 @@ const listProducts = async () => {
     if (response) {
       products.value = response.data.data.products;
       router.push({ query: { keyword: search.value } });
+      
       loading.value = false;
     }
   } catch (e) {
