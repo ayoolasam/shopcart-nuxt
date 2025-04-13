@@ -7,13 +7,13 @@ export default defineNuxtRouteMiddleware((to, from) => {
   //   student: "/student/dashboard",
   //   staff: "/tutor/dashboard",
   // };
-  const publicRoutes = ["/", "/Login", "/Register", "/forgotPassword", ,];
+  const publicRoutes = ["/", "/Login", "/Register", "/forgotPassword",];
 
   if (to.meta.auth === false) {
     return;
   }
 
-  if (publicRoutes.includes(to.path)) {
+  if (publicRoutes.includes(to.path) || to.path.startsWith("/products/")) {
     return;
   }
 
