@@ -54,10 +54,7 @@ const closeModal = () => {
 const logOut = async () => {
   try {
     loading.value = true;
-    const response = await $apiClient.get(`/api/v1/logout`, {
-      comment: review.value,
-      rating: rating.value,
-    });
+    const response = await $apiClient.get(`/api/v1/logout`);
     if (response) {
       userStore.resetStore();
       loading.value = false;

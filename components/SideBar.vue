@@ -1,13 +1,16 @@
 <template>
   <div class="modal-overlay xl:hidden md:hidden">
     <div
-      class="bg-primary py-4 h-full absolute right-0 top-0 transition-all duration-1000 w-[270px]"
+      class="bg-primary cursor-pointer py-4 h-full absolute right-0 top-0 transition-all duration-1000 w-[270px]"
     >
       <div class="flex justify-end px-4 text-white text-xl font-bold">
         <i @click="emitter" class="ri-close-large-line cursor-pointer"></i>
       </div>
-      
-      <ul v-if=" userStore.userData && Object.keys(userStore.userData).length > 0 " class="mt-8 w-full">
+
+      <ul
+        v-if="userStore.userData && Object.keys(userStore.userData).length > 0"
+        class="mt-8 w-full"
+      >
         <li
           v-for="(item, index) in nav"
           :key="index"
@@ -29,14 +32,31 @@
           </NuxtLink>
         </li>
       </ul>
+      <ul>
+        <li
+          @click="toggleCtaModal"
+          class="w-full p-4 text-center text-xl font-bold text-white"
+        >
+          <span>Log Out</span>
+        </li>
+      </ul>
     </div>
+    <CtaModal
+      Heading="Log Out"
+      sub="Are you sure you want to Log Out"
+      miniSub="You can Always Come Back Later"
+      v-if="showCtaModal"
+      @closeModal="closeCtaModal"
+    />
   </div>
 </template>
 
 <script setup>
 import { useUserStore } from "#imports";
+import CtaModal from "./ctaModal.vue";
 
 const props = defineProps(["sidebar"]);
+const showCtaModal = ref(false);
 const emit = defineEmits(["close"]);
 const emitter = () => {
   emit("close");
@@ -55,11 +75,6 @@ const nav = [
     name: "Orders",
     link: "/user/orders",
   },
-  {
-    name: "LogOut",
-    link: "/",
-  },
- 
 ];
 const navnotLogged = [
   {
@@ -71,6 +86,15 @@ const navnotLogged = [
     link: "/Register",
   },
 ];
+
+const toggleCtaModal = () => {
+  showCtaModal.value = true;
+};
+
+const closeCtaModal = () => {
+  showCtaModal.value = false;
+  emitter("close");
+};
 </script>
 
 <style scoped>
